@@ -1,0 +1,24 @@
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+
+# LangChain Core (compatible versions)
+langchain>=0.1.0
+langchain-core>=0.1.7
+langchain-community>=0.0.13
+
+# LangChain Integrations
+langchain-openai>=0.0.5
+
+# SQL Parsing and Validation
+sqlparse==0.4.4
+
+# UI
+streamlit==1.30.0
+
+# Utilities
+python-dotenv==1.0.0
+pydantic>=2.5.3
+
+# Optional: Enhanced features
+langchain-experimental>=0.0.47
