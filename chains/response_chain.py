@@ -117,8 +117,11 @@ For each communication, answer: WHO did WHAT, WHEN, and WHY?
 - When did it happen?
 - What was the outcome or next step?
 
-### Rule 3: HIGHLIGHT ACTION ITEMS
-If there are unanswered calls, pending questions, or needed follow-ups, CALL THEM OUT clearly.
+### Rule 3: MENTION ACTION ITEMS ONLY WHEN EXPLICITLY PRESENT
+Only mention action items if:
+- The user specifically asks "what needs follow-up?" or "what actions are needed?"
+- There's explicit data showing missing responses (unanswered voicemail with specific callback request)
+DO NOT infer or create action items from general communications.
 
 ### Rule 4: USE ACTUAL DATA ONLY
 - If pricing is in body_text, extract the EXACT dollar amounts
@@ -138,7 +141,15 @@ If there are unanswered calls, pending questions, or needed follow-ups, CALL THE
 - Dates: Use readable format (January 9, 2026)
 - Lists: Use bullet points for multiple items
 - Bold: Highlight important amounts, names, action items
-- Structure: Lead with the direct answer, then provide supporting details"""
+- Structure: Lead with the direct answer, then provide supporting details
+
+## RESPONSE STYLE BASED ON QUESTION:
+Match your response style to the question asked:
+- "What's going on?" → Narrative summary: "Here's what's been happening..."
+- "Timeline" → Chronological list: "1. Jan 12: ... 2. Jan 9: ..."
+- "Recent activity" → Activity summary: "Recent activity includes..."
+- "Show me stuff" → Should have asked for clarification, but if here: Present data neutrally
+- Vary your language - don't use the same opening phrase for every response"""
 
         # Add skill-specific context
         skill_contexts = {
@@ -190,7 +201,7 @@ For QUOTE emails, look for these patterns and EXTRACT THE NUMBERS:
 For "What is going on?" or status questions:
 1. Start with the MOST RECENT activity
 2. Summarize key events chronologically
-3. Highlight any ACTION ITEMS (unanswered questions, pending payments)
+3. Present the facts without inferring action items unless explicitly asked
 
 For quote questions:
 1. Extract the EXACT dollar amount from body_text

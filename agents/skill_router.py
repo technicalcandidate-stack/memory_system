@@ -4,6 +4,15 @@
 class SkillDetector:
     """Classify user questions into database-schema skills based on keywords."""
 
+    # Overview keywords - HIGHEST priority for multi-table account overview questions
+    OVERVIEW_KEYWORDS = [
+        "what's going on", "what is going on", "whats going on",
+        "account status", "account overview", "overall status",
+        "what happened", "activity", "timeline", "history",
+        "communications", "all communications", "recent activity",
+        "latest activity", "recent communications", "update me"
+    ]
+
     # Priority keywords - checked in order, first match wins
     PRIORITY_KEYWORDS = {
         # Phone calls - HIGHEST priority for call-related questions
@@ -26,9 +35,7 @@ class SkillDetector:
             "email", "emails", "sent", "received", "inbox",
             "subject", "sender", "recipient", "thread",
             "followup", "follow up", "unanswered", "pending",
-            "awaiting response", "no reply", "timeline", "activity",
-            "history", "communications", "what's going on", "what is going on",
-            "account status", "what happened", "recent", "latest"
+            "awaiting response", "no reply"
         ],
     }
 
@@ -50,25 +57,31 @@ class SkillDetector:
         Detect the skill type from user question based on database tables.
 
         Priority order:
-        1. Check phone_calls keywords (calls, conversations, voicemails)
-        2. Check phone_messages keywords (SMS, texts)
-        3. Check email_communications keywords (quotes, emails, account status)
-        4. Check companies_data keywords - LOWEST PRIORITY
+        1. Check overview keywords (account status, what's going on) → general (multi-table UNION)
+        2. Check phone_calls keywords (calls, conversations, voicemails)
+        3. Check phone_messages keywords (SMS, texts)
+        4. Check email_communications keywords (quotes, emails)
+        5. Check companies_data keywords - LOWEST PRIORITY
 
         Args:
             question: User's natural language question
 
         Returns:
-            Skill name: phone_calls | phone_messages | email_communications | companies_data | general
+            Skill name: general | phone_calls | phone_messages | email_communications | companies_data
         """
         question_lower = question.lower()
 
-        # First: Check priority keywords in order
+        # FIRST: Check for overview/account status questions
+        # These should use UNION ALL to query all communication tables
+        if any(kw in question_lower for kw in SkillDetector.OVERVIEW_KEYWORDS):
+            return "general"
+
+        # SECOND: Check priority keywords in order
         for skill, keywords in SkillDetector.PRIORITY_KEYWORDS.items():
             if any(kw in question_lower for kw in keywords):
                 return skill
 
-        # Second: Check secondary keywords (company data)
+        # THIRD: Check secondary keywords (company data)
         for skill, keywords in SkillDetector.SECONDARY_KEYWORDS.items():
             if any(kw in question_lower for kw in keywords):
                 return skill

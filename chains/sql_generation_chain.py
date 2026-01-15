@@ -8,11 +8,11 @@ from pydantic import BaseModel, Field
 
 class SQLGenerationOutput(BaseModel):
     """Output schema for SQL generation."""
-    needs_clarification: bool = Field(default=False, description="Set to true ONLY if the question is genuinely ambiguous and you cannot reasonably proceed. Examples: 'show me the data' (which data?), 'what about the thing' (what thing?). Do NOT set true for clear questions like 'what is the latest phone call?' or 'show me emails'.")
-    clarification_question: str = Field(default="", description="If needs_clarification is true, provide a SPECIFIC question to ask. Example: 'Are you asking about phone calls, text messages, or emails?' Keep it short and actionable.")
-    reasoning: str = Field(description="Detailed reasoning explaining: 1) Why these specific tables were chosen, 2) Why these specific columns were selected, 3) Why each WHERE clause filter was included, 4) Why this specific JOIN strategy was used (if applicable), 5) Why certain rows/data are being excluded. Be explicit about every decision made in the query.")
-    sql: str = Field(default="", description="The generated SQL query. Leave empty if needs_clarification is true.")
-    explanation: str = Field(description="What the query does in plain English")
+    needs_clarification: bool = Field(default=False, description="Set to true when the question is too vague to determine what data to query. Examples REQUIRING clarification: 'show me the data', 'give me data', 'show me stuff', 'get info', 'what about them?'. Examples NOT needing clarification: 'what's going on?' (all communications), 'show me emails' (emails table), 'recent calls' (calls table), 'account status' (UNION ALL communications), 'recent activity' (recent communications with LIMIT 20).")
+    clarification_question: str = Field(default="", description="If needs_clarification is true, provide a SPECIFIC, actionable question with options. Example: 'What information would you like to see? Recent communications (emails/calls/texts), company details, quotes, or something else?' Keep it conversational and provide clear choices.")
+    reasoning: str = Field(description="Detailed reasoning explaining: 1) Why these specific tables were chosen (including why UNION ALL was used if combining tables), 2) Why these specific columns were selected, 3) Why each WHERE clause filter was included, 4) Why this specific JOIN strategy was used (if applicable), 5) Why certain rows/data are being excluded. For overview questions, explain why you're querying multiple tables. Be explicit about every decision made in the query.")
+    sql: str = Field(default="", description="The generated SQL query. Leave empty if needs_clarification is true. For account overview/status questions, use UNION ALL to combine emails, calls, and SMS.")
+    explanation: str = Field(description="What the query does in plain English. For multi-table queries, explain that you're combining data from multiple sources for a comprehensive view.")
 
 
 class SQLGenerationChain:

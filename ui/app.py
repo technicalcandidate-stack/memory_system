@@ -14,6 +14,7 @@ from core.executor import execute_with_retry
 from config.settings import DEFAULT_COMPANY_ID
 from config.database import get_db_session
 from memory.conversation_memory import ConversationMemoryManager
+from graph.orchestrator import MultiAgentOrchestrator
 
 # Initialize global memory manager
 if "memory_manager" not in st.session_state:
@@ -577,10 +578,12 @@ if prompt := st.chat_input("Ask a question..."):
                     current_session["id"]
                 )
 
-                result = execute_with_retry(
-                    prompt,
-                    current_session["company_id"],
-                    conversation_history
+                # Use MultiAgentOrchestrator for routing between SQL and Document agents
+                orchestrator = MultiAgentOrchestrator(company_id=current_session["company_id"])
+                result = orchestrator.process_query(
+                    user_question=prompt,
+                    session_id=current_session["id"],
+                    conversation_history=conversation_history
                 )
             except Exception as e:
                 st.error(f"Error executing query: {str(e)}")
@@ -602,6 +605,22 @@ if prompt := st.chat_input("Ask a question..."):
             if "trajectory" in result and result["trajectory"]:
                 with st.expander("🧠 Agent Trajectory (LLM Thinking Process)"):
                     traj = result["trajectory"]
+
+                    # Agent Routing Decision
+                    st.markdown("### 🔀 Agent Routing")
+                    route = traj.get('route_decision', 'unknown')
+                    route_emoji = {"sql_only": "💾", "document_search": "📄", "hybrid": "🔀", "unknown": "❓"}
+                    st.markdown(f"**Route:** {route_emoji.get(route, '❓')} `{route}`")
+
+                    # Execution Path - which agents were invoked
+                    exec_path = traj.get('execution_path', [])
+                    if exec_path:
+                        path_display = " → ".join(exec_path)
+                        st.markdown(f"**Execution Path:** {path_display}")
+
+                    st.markdown("---")
+
+                    # Detected Skill (for SQL agent)
                     st.markdown(f"**🎯 Detected Skill:** {traj.get('detected_skill', 'N/A')}")
                     st.markdown(f"**🔄 Attempts:** {traj.get('attempts', 'N/A')}")
                     st.markdown(f"**📊 Rows Returned:** {traj.get('rows_returned', 'N/A')}")

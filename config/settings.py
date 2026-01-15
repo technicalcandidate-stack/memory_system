@@ -41,3 +41,13 @@ NLG_MAX_ROWS = int(os.getenv("NLG_MAX_ROWS", "10"))  # Max rows to include in pr
 
 # Company ID (default for testing)
 DEFAULT_COMPANY_ID = 29447
+
+# Vector Search Configuration
+VECTOR_SEARCH_TOP_K = int(os.getenv("VECTOR_SEARCH_TOP_K", "5"))
+VECTOR_SIMILARITY_THRESHOLD = float(os.getenv("VECTOR_SIMILARITY_THRESHOLD", "0.7"))
+EMBEDDINGS_MODEL = os.getenv("EMBEDDINGS_MODEL", "text-embedding-3-small")
+EMBEDDINGS_DIMENSION = int(os.getenv("EMBEDDINGS_DIMENSION", "1536"))
+
+# Document Chunking Configuration
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "4000"))
+CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "200"))

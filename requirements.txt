@@ -1,6 +1,7 @@
 # Database
 sqlalchemy==2.0.25
 psycopg2-binary==2.9.9
+pgvector==0.2.5
 
 # LangChain Core (compatible versions)
 langchain>=0.1.0
@@ -19,6 +20,7 @@ streamlit==1.30.0
 # Utilities
 python-dotenv==1.0.0
 pydantic>=2.5.3
+tiktoken>=0.5.2
 
 # Optional: Enhanced features
 langchain-experimental>=0.0.47
