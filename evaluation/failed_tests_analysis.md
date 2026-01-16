@@ -37,6 +37,32 @@
 | Response truncation | multi_001 | Increase output token limit or optimize response format |
 | Strict LLM judge | edge_chat_004 | Update expected answer or adjust judge tolerance |
 
+### Technical Root Cause: Memory Test Failures
+
+The memory tests (`mem_001b`, `mem_005b`) fail due to how the evaluation runner assigns session IDs.
+
+**Code Location**: `runner.py:358`
+```python
+session_id=f"eval_{test_id}"
+```
+
+**Problem**: Each test gets a unique session ID based on its test ID:
+- `mem_001a` → session `eval_mem_001a`
+- `mem_001b` → session `eval_mem_001b`
+
+Since these are **different session IDs**, they don't share memory. The memory system keys conversations by session ID, so `mem_001b` cannot access the context from `mem_001a`.
+
+**Potential Fix**: Use shared session ID for related test pairs:
+```python
+# Extract base ID: mem_001a → mem_001, mem_001b → mem_001
+base_id = test_id.rstrip('abcdefgh')  # or use regex
+session_id = f"eval_{base_id}"
+```
+
+This would allow `mem_001a` and `mem_001b` to share session `eval_mem_001`.
+
+**Note**: The memory system itself works correctly (as seen in the Streamlit app). This is purely an evaluation framework limitation.
+
 ---
 
 ## Part 2: Improvement Ideas & Solutions
