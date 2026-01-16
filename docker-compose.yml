@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  ai-assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: insurance-intelligence
+    ports:
+      - "8501:8501"
+    environment:
+      # Required
+      - DATABASE_URL=${DATABASE_URL}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # Optional - LangChain tracing
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-false}
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY:-}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-ai-assistant}
+      # Optional - LLM configuration
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
+      - LLM_TEMPERATURE_SQL=${LLM_TEMPERATURE_SQL:-0.1}
+      - LLM_TEMPERATURE_RESPONSE=${LLM_TEMPERATURE_RESPONSE:-0.7}
+      # Optional - Memory configuration
+      - MEMORY_WINDOW_SIZE=${MEMORY_WINDOW_SIZE:-3}
+    volumes:
+      # Mount ChromaDB data for persistence
+      - ./database/chromadb/data:/app/database/chromadb/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  chromadb_data:

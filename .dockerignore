@@ -1,0 +1,47 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+.eggs
+dist
+build
+.venv
+venv
+ENV
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints
+
+# Environment files (use docker-compose env vars instead)
+.env
+.env.*
+!.env.example
+
+# ChromaDB data (mounted as volume)
+database/chromadb/data
+
+# Logs
+*.log
+
+# Evaluation results (not needed in container)
+evaluation/results
+
+# Archive
+_archive_old_files

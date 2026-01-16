@@ -1,8 +1,9 @@
 """Document Agent node for LangGraph multi-agent orchestration."""
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 import sys
 import os
+import hashlib
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
@@ -16,6 +17,43 @@ from config.database import get_db_session
 
 # Initialize ChromaDB client directly (simpler approach)
 _chroma_client = None
+
+# Simple in-memory cache for Document agent results
+# Key: hash of (question, company_id), Value: result dict
+_doc_cache: Dict[str, dict] = {}
+_CACHE_MAX_SIZE = 50  # Maximum number of cached entries
+
+
+def _get_cache_key(question: str, company_id: int) -> str:
+    """Generate a cache key from question and company_id."""
+    cache_string = f"{company_id}:{question.lower().strip()}"
+    return hashlib.md5(cache_string.encode()).hexdigest()
+
+
+def _get_cached_result(question: str, company_id: int) -> Optional[dict]:
+    """Check if we have a cached result for this query."""
+    cache_key = _get_cache_key(question, company_id)
+    if cache_key in _doc_cache:
+        print(f"✅ CACHE HIT: Returning cached document result")
+        return _doc_cache[cache_key]
+    return None
+
+
+def _cache_result(question: str, company_id: int, result: dict) -> None:
+    """Cache the result for future use."""
+    global _doc_cache
+
+    # Evict oldest entries if cache is full
+    if len(_doc_cache) >= _CACHE_MAX_SIZE:
+        # Remove first 10 entries (simple eviction)
+        keys_to_remove = list(_doc_cache.keys())[:10]
+        for key in keys_to_remove:
+            del _doc_cache[key]
+        print(f"🗑️ CACHE EVICTION: Removed {len(keys_to_remove)} old entries")
+
+    cache_key = _get_cache_key(question, company_id)
+    _doc_cache[cache_key] = result
+    print(f"💾 CACHE STORE: Saved document result (cache size: {len(_doc_cache)})")
 
 def _get_chroma_client():
     """Get ChromaDB client (lazy initialization)."""
@@ -186,6 +224,32 @@ def document_agent_node(state: MultiAgentState) -> Dict[str, Any]:
     document_agent_memory = state.get("document_agent_memory", [])
     print(f"Document Agent memory entries: {len(document_agent_memory)}")
 
+    # Check cache first
+    cached_result = _get_cached_result(question, company_id)
+    if cached_result:
+        print(f"Document Agent completed (FROM CACHE)")
+        print("="*60 + "\n")
+
+        agent_response = AgentResponse(
+            agent_name="document_agent",
+            content=cached_result.get("natural_response", ""),
+            data=None,
+            sql=None,
+            documents=cached_result.get("documents", []),
+            confidence=cached_result.get("confidence", 0.85),
+            error=None
+        )
+
+        return {
+            "agent_responses": [agent_response],
+            "retrieved_documents": cached_result.get("documents", []),
+            "document_summary": cached_result.get("natural_response", ""),
+            "execution_path": ["document_agent (cached)"],
+            "document_agent_memory": document_agent_memory  # No new memory entry for cached results
+        }
+
+    # Cache miss - proceed with document retrieval
+    print("🔍 CACHE MISS: Retrieving documents...")
     print(f"Retrieving all documents for company {company_id}...")
     print(f"Question: {question}")
 
@@ -255,6 +319,14 @@ Response: "According to **NXTKCJ99LW-00-GL-policy-0000.pdf**, the premium is **$
 
     # Set confidence based on whether we found documents
     confidence = 0.85 if company_docs else 0.3
+
+    # Cache the result for future use
+    cache_data = {
+        "natural_response": natural_response,
+        "documents": documents,
+        "confidence": confidence
+    }
+    _cache_result(question, company_id, cache_data)
 
     agent_response = AgentResponse(agent_name="document_agent", content=natural_response, data=None, sql=None,
                                    documents=documents, confidence=confidence, error=None)

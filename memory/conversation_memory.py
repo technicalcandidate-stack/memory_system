@@ -1,7 +1,6 @@
-"""Conversation memory manager using LangChain."""
-from typing import Dict, List, Optional
-from langchain.memory import ConversationBufferWindowMemory
-from langchain_core.messages import HumanMessage, AIMessage
+"""Conversation memory manager - Simple implementation without deprecated LangChain memory."""
+from typing import Dict, List
+from collections import deque
 from config.settings import MEMORY_WINDOW_SIZE
 
 # Agent names for memory isolation
@@ -10,7 +9,7 @@ AGENT_NAMES = ["supervisor", "sql_agent", "document_agent", "synthesizer"]
 
 class ConversationMemoryManager:
     """
-    Manage conversation memory per session using LangChain.
+    Manage conversation memory per session.
 
     Each chat session gets its own isolated memory instance.
     Memory is stored in a buffer with a configurable window size.
@@ -24,9 +23,9 @@ class ConversationMemoryManager:
             window_size: Number of conversation turns to remember (default from settings)
         """
         self.window_size = window_size or MEMORY_WINDOW_SIZE
-        self.memories: Dict[str, ConversationBufferWindowMemory] = {}
+        self.memories: Dict[str, deque] = {}
 
-    def get_memory(self, session_id: str) -> ConversationBufferWindowMemory:
+    def get_memory(self, session_id: str) -> deque:
         """
         Get or create memory for a session.
 
@@ -34,17 +33,10 @@ class ConversationMemoryManager:
             session_id: Unique session identifier
 
         Returns:
-            LangChain ConversationBufferWindowMemory instance
+            Deque containing conversation history
         """
         if session_id not in self.memories:
-            self.memories[session_id] = ConversationBufferWindowMemory(
-                k=self.window_size,  # Number of exchanges to remember
-                return_messages=True,
-                memory_key="chat_history",
-                input_key="question",
-                output_key="answer"
-            )
-
+            self.memories[session_id] = deque(maxlen=self.window_size)
         return self.memories[session_id]
 
     def add_exchange(
@@ -62,20 +54,17 @@ class ConversationMemoryManager:
             assistant_response: Assistant's response
         """
         memory = self.get_memory(session_id)
-        memory.save_context(
-            {"question": user_question},
-            {"answer": assistant_response}
-        )
+        memory.append({
+            "question": user_question,
+            "answer": assistant_response
+        })
 
         # Log memory update
         print("\n💾 MEMORY UPDATE:")
         print(f"   Session ID: {session_id}")
         print(f"   Question Added: {user_question[:80]}...")
         print(f"   Response Added: {assistant_response[:80]}...")
-
-        # Show current memory state
-        history = self.get_conversation_history(session_id)
-        print(f"   Total Exchanges in Memory: {len(history)}")
+        print(f"   Total Exchanges in Memory: {len(memory)}")
         print(f"   Memory Window Size: {self.window_size}")
 
     def get_conversation_history(self, session_id: str, log_retrieval: bool = False) -> List[Dict[str, str]]:
@@ -97,21 +86,7 @@ class ConversationMemoryManager:
             return []
 
         memory = self.get_memory(session_id)
-        history = memory.load_memory_variables({})
-        messages = history.get("chat_history", [])
-
-        # Convert LangChain messages to simple Q&A format
-        qa_pairs = []
-        for i in range(0, len(messages), 2):
-            if i + 1 < len(messages):
-                human_msg = messages[i]
-                ai_msg = messages[i + 1]
-
-                if isinstance(human_msg, HumanMessage) and isinstance(ai_msg, AIMessage):
-                    qa_pairs.append({
-                        "question": human_msg.content,
-                        "answer": ai_msg.content
-                    })
+        qa_pairs = list(memory)
 
         # Log memory retrieval if requested
         if log_retrieval:
@@ -128,20 +103,17 @@ class ConversationMemoryManager:
 
     def get_conversation_history_raw(self, session_id: str) -> List:
         """
-        Get raw conversation history as LangChain messages.
+        Get raw conversation history.
 
         Args:
             session_id: Unique session identifier
 
         Returns:
-            List of LangChain message objects
+            List of conversation exchanges
         """
         if session_id not in self.memories:
             return []
-
-        memory = self.get_memory(session_id)
-        history = memory.load_memory_variables({})
-        return history.get("chat_history", [])
+        return list(self.memories[session_id])
 
     def clear_session(self, session_id: str) -> None:
         """
@@ -179,7 +151,7 @@ class ConversationMemoryManager:
         """Generate a unique key for agent-specific memory."""
         return f"{session_id}:{agent_name}"
 
-    def get_agent_memory(self, session_id: str, agent_name: str) -> ConversationBufferWindowMemory:
+    def get_agent_memory(self, session_id: str, agent_name: str) -> deque:
         """
         Get or create memory for a specific agent in a session.
 
@@ -188,17 +160,11 @@ class ConversationMemoryManager:
             agent_name: Name of the agent (supervisor, sql_agent, document_agent, synthesizer)
 
         Returns:
-            LangChain ConversationBufferWindowMemory instance for the agent
+            Deque containing agent's conversation history
         """
         agent_key = self._get_agent_key(session_id, agent_name)
         if agent_key not in self.memories:
-            self.memories[agent_key] = ConversationBufferWindowMemory(
-                k=self.window_size,
-                return_messages=True,
-                memory_key="chat_history",
-                input_key="question",
-                output_key="answer"
-            )
+            self.memories[agent_key] = deque(maxlen=self.window_size)
         return self.memories[agent_key]
 
     def add_agent_exchange(
@@ -218,10 +184,10 @@ class ConversationMemoryManager:
             answer: The agent's response/output
         """
         memory = self.get_agent_memory(session_id, agent_name)
-        memory.save_context(
-            {"question": question},
-            {"answer": answer}
-        )
+        memory.append({
+            "question": question,
+            "answer": answer
+        })
 
         print(f"\n💾 AGENT MEMORY UPDATE [{agent_name.upper()}]:")
         print(f"   Session ID: {session_id}")
@@ -242,22 +208,7 @@ class ConversationMemoryManager:
         agent_key = self._get_agent_key(session_id, agent_name)
         if agent_key not in self.memories:
             return []
-
-        memory = self.get_agent_memory(session_id, agent_name)
-        history = memory.load_memory_variables({})
-        messages = history.get("chat_history", [])
-
-        qa_pairs = []
-        for i in range(0, len(messages), 2):
-            if i + 1 < len(messages):
-                human_msg = messages[i]
-                ai_msg = messages[i + 1]
-                if isinstance(human_msg, HumanMessage) and isinstance(ai_msg, AIMessage):
-                    qa_pairs.append({
-                        "question": human_msg.content,
-                        "answer": ai_msg.content
-                    })
-        return qa_pairs
+        return list(self.memories[agent_key])
 
     def get_all_agent_memories(self, session_id: str) -> Dict[str, List[Dict[str, str]]]:
         """

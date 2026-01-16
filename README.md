@@ -315,14 +315,49 @@ Output: "They discussed renewing the business liability policy.
 
 ## Setup Instructions
 
-### 1. Install Dependencies
+### Option 1: Docker (Recommended)
+
+```bash
+cd ai_assistant
+
+# Copy environment template and add your credentials
+cp .env.example .env
+# Edit .env with your DATABASE_URL and OPENAI_API_KEY
+
+# Build and run
+docker compose up --build
+```
+
+The app will be available at `http://localhost:8501`
+
+**Docker Commands:**
+```bash
+# Start the container
+docker compose up
+
+# Start in detached mode (background)
+docker compose up -d
+
+# Rebuild after code changes
+docker compose up --build
+
+# Stop the container
+docker compose down
+
+# View logs
+docker compose logs -f
+```
+
+### Option 2: Local Development
+
+#### 1. Install Dependencies
 
 ```bash
 cd ai_assistant
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment Variables
+#### 2. Configure Environment Variables
 
 Create a `.env` file in the `ai_assistant/` directory:
 

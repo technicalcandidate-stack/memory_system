@@ -11,11 +11,18 @@ langchain-community>=0.0.13
 # LangChain Integrations
 langchain-openai>=0.0.5
 
+# LangGraph for multi-agent orchestration
+langgraph>=0.0.20
+
 # SQL Parsing and Validation
 sqlparse==0.4.4
 
 # UI
 streamlit==1.30.0
+streamlit-modal>=0.1.0
+
+# Vector Database
+chromadb>=0.4.22
 
 # Utilities
 python-dotenv==1.0.0
