@@ -2,10 +2,6 @@
 
 A multi-agent natural language interface for commercial insurance data, powered by **LangGraph**, **LangChain**, and **GPT-4o-mini**. Intelligently routes queries between structured database operations and semantic document search.
 
-## Live Demo
-
-**Deployed Frontend:** https://unsteered-botanically-temple.ngrok-free.dev
-
 ## Architecture
 
 ### Multi-Agent Orchestration Flow
