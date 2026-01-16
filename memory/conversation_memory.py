@@ -4,6 +4,9 @@ from langchain.memory import ConversationBufferWindowMemory
 from langchain_core.messages import HumanMessage, AIMessage
 from config.settings import MEMORY_WINDOW_SIZE
 
+# Agent names for memory isolation
+AGENT_NAMES = ["supervisor", "sql_agent", "document_agent", "synthesizer"]
+
 
 class ConversationMemoryManager:
     """
@@ -169,3 +172,126 @@ class ConversationMemoryManager:
             True if session exists, False otherwise
         """
         return session_id in self.memories
+
+    # ==================== Agent-Specific Memory Methods ====================
+
+    def _get_agent_key(self, session_id: str, agent_name: str) -> str:
+        """Generate a unique key for agent-specific memory."""
+        return f"{session_id}:{agent_name}"
+
+    def get_agent_memory(self, session_id: str, agent_name: str) -> ConversationBufferWindowMemory:
+        """
+        Get or create memory for a specific agent in a session.
+
+        Args:
+            session_id: Unique session identifier
+            agent_name: Name of the agent (supervisor, sql_agent, document_agent, synthesizer)
+
+        Returns:
+            LangChain ConversationBufferWindowMemory instance for the agent
+        """
+        agent_key = self._get_agent_key(session_id, agent_name)
+        if agent_key not in self.memories:
+            self.memories[agent_key] = ConversationBufferWindowMemory(
+                k=self.window_size,
+                return_messages=True,
+                memory_key="chat_history",
+                input_key="question",
+                output_key="answer"
+            )
+        return self.memories[agent_key]
+
+    def add_agent_exchange(
+        self,
+        session_id: str,
+        agent_name: str,
+        question: str,
+        answer: str
+    ) -> None:
+        """
+        Add an exchange to a specific agent's memory.
+
+        Args:
+            session_id: Unique session identifier
+            agent_name: Name of the agent
+            question: The input/question for this exchange
+            answer: The agent's response/output
+        """
+        memory = self.get_agent_memory(session_id, agent_name)
+        memory.save_context(
+            {"question": question},
+            {"answer": answer}
+        )
+
+        print(f"\n💾 AGENT MEMORY UPDATE [{agent_name.upper()}]:")
+        print(f"   Session ID: {session_id}")
+        print(f"   Input: {question[:80]}...")
+        print(f"   Output: {answer[:80]}...")
+
+    def get_agent_history(self, session_id: str, agent_name: str) -> List[Dict[str, str]]:
+        """
+        Get conversation history for a specific agent.
+
+        Args:
+            session_id: Unique session identifier
+            agent_name: Name of the agent
+
+        Returns:
+            List of {'question': ..., 'answer': ...} dictionaries
+        """
+        agent_key = self._get_agent_key(session_id, agent_name)
+        if agent_key not in self.memories:
+            return []
+
+        memory = self.get_agent_memory(session_id, agent_name)
+        history = memory.load_memory_variables({})
+        messages = history.get("chat_history", [])
+
+        qa_pairs = []
+        for i in range(0, len(messages), 2):
+            if i + 1 < len(messages):
+                human_msg = messages[i]
+                ai_msg = messages[i + 1]
+                if isinstance(human_msg, HumanMessage) and isinstance(ai_msg, AIMessage):
+                    qa_pairs.append({
+                        "question": human_msg.content,
+                        "answer": ai_msg.content
+                    })
+        return qa_pairs
+
+    def get_all_agent_memories(self, session_id: str) -> Dict[str, List[Dict[str, str]]]:
+        """
+        Get memories for all agents in a session.
+
+        Args:
+            session_id: Unique session identifier
+
+        Returns:
+            Dictionary mapping agent names to their memory histories
+        """
+        return {
+            agent_name: self.get_agent_history(session_id, agent_name)
+            for agent_name in AGENT_NAMES
+        }
+
+    def clear_agent_memory(self, session_id: str, agent_name: str) -> None:
+        """
+        Clear memory for a specific agent in a session.
+
+        Args:
+            session_id: Unique session identifier
+            agent_name: Name of the agent
+        """
+        agent_key = self._get_agent_key(session_id, agent_name)
+        if agent_key in self.memories:
+            del self.memories[agent_key]
+
+    def clear_all_agent_memories(self, session_id: str) -> None:
+        """
+        Clear all agent memories for a session.
+
+        Args:
+            session_id: Unique session identifier
+        """
+        for agent_name in AGENT_NAMES:
+            self.clear_agent_memory(session_id, agent_name)

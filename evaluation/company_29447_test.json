@@ -1,0 +1,3203 @@
+{
+  "company_id": 29447,
+  "summary": {
+    "total_tests": 66,
+    "passed": 42,
+    "failed": 24,
+    "pass_rate": "63.6%",
+    "total_duration_seconds": 590.76020860672,
+    "average_duration_seconds": 8.95091225161697,
+    "timestamp": "2026-01-15T16:56:38.025907",
+    "answer_validation": {
+      "answers_correct": 52,
+      "answer_accuracy": "78.8%",
+      "average_rouge1_recall": 0,
+      "rouge_samples": 0
+    },
+    "agent_tracking": {
+      "route_distribution": {
+        "sql_only": 48,
+        "document_search": 5,
+        "hybrid": 1,
+        "conversational": 12
+      },
+      "route_accuracy": "93.9%",
+      "route_matches": "62/66",
+      "agents_accuracy": "78.8%",
+      "agents_matches": "52/66"
+    }
+  },
+  "questions_and_answers": [
+    {
+      "test_id": "company_001",
+      "category": "individual_agent",
+      "subcategory": "companies_data",
+      "question": "What is the company name?",
+      "answer": "The company name is **Guardian Families Homecare, LLC**.",
+      "passed": true,
+      "skill_detected": "companies_data",
+      "skill_expected": "companies_data",
+      "skill_match": true,
+      "sql_generated": "SELECT company_name\nFROM public.companies\nWHERE id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 5.432893991470337,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "guardian families homecare, llc",
+          "guardian families homecare"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "company_002",
+      "category": "individual_agent",
+      "subcategory": "companies_data",
+      "question": "What industry is this company in?",
+      "answer": "The company operates in the **Healthcare** industry. This sector focuses on providing medical services, manufacturing medical equipment, and developing pharmaceuticals.",
+      "passed": true,
+      "skill_detected": "companies_data",
+      "skill_expected": "companies_data",
+      "skill_match": true,
+      "sql_generated": "SELECT company_industry\nFROM public.companies\nWHERE id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 5.017050266265869,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "healthcare"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "company_003",
+      "category": "individual_agent",
+      "subcategory": "companies_data",
+      "question": "Where is Guardian Families Homecare located?",
+      "answer": "Guardian Families Homecare is located at **356 Jefferson Avenue**, **Indianapolis**, **Indiana**, **46201**.",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": "companies_data",
+      "skill_match": false,
+      "sql_generated": "SELECT company_street_address_1,\n       company_city,\n       company_state,\n       company_postal_code\nFROM public.companies\nWHERE company_name ILIKE '%Guardian Families Homecare%'\n  AND id IN (29447,\n             29430,\n             29354,\n             29322,\n             29270,\n             29263,\n             29230,\n             29088,\n             29057,\n             29000,\n             28956,\n             28952,\n             28880,\n             28811,\n             29626,\n             29618,\n             29610,\n             29594,\n             29576,\n             29565,\n             29564,\n             29604,\n             29595,\n             29560,\n             29548,\n             29546,\n             29525)",
+      "rows_returned": 1,
+      "duration_seconds": 10.91425895690918,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "indianapolis"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "company_004",
+      "category": "individual_agent",
+      "subcategory": "companies_data",
+      "question": "What is the annual revenue of this company?",
+      "answer": "The annual revenue of the company is **$150,000.00**. This figure reflects the total income generated by the business over the past year.",
+      "passed": true,
+      "skill_detected": "companies_data",
+      "skill_expected": "companies_data",
+      "skill_match": true,
+      "sql_generated": "SELECT company_annual_revenue_usd\nFROM public.companies\nWHERE id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 7.984575986862183,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 1.0,
+        "reasoning": "The assistant's response includes the expected value of the annual revenue in an acceptable format ('$150,000'), which matches the criteria for a numeric range response.",
+        "matched_values": [
+          "$150,000"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "company_005",
+      "category": "individual_agent",
+      "subcategory": "companies_data",
+      "question": "How many employees does this business have?",
+      "answer": "The business has **4 employees**. If you need any more information about the company or its operations, feel free to ask!",
+      "passed": true,
+      "skill_detected": "companies_data",
+      "skill_expected": "companies_data",
+      "skill_match": true,
+      "sql_generated": "SELECT company_full_time_employees + company_part_time_employees AS total_employees\nFROM public.companies\nWHERE id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 6.456621170043945,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "4",
+          "4",
+          "4 employees"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "company_006",
+      "category": "individual_agent",
+      "subcategory": "companies_data",
+      "question": "What are the contact details for this business?",
+      "answer": "The contact details for Guardian Families Homecare, LLC are as follows:\n\n- **Email:** guardianfamiliesfirst@gmail.com  \n- **Phone:** +1 (317) 365-7605  \n- **Address:** 356 Jefferson Avenue, Indianapolis, Indiana, 46201",
+      "passed": true,
+      "skill_detected": "companies_data",
+      "skill_expected": "companies_data",
+      "skill_match": true,
+      "sql_generated": "SELECT company_name,\n       company_primary_email,\n       company_primary_phone,\n       company_website,\n       company_street_address_1,\n       company_street_address_2,\n       company_city,\n       company_state,\n       company_postal_code\nFROM public.companies\nWHERE id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 7.474327087402344,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "guardianfamiliesfirst@gmail.com",
+          "317"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_001",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "How many emails have been exchanged with this company?",
+      "answer": "There have been a total of **12 emails** exchanged with this company. This includes various types of communications regarding quotes, policy matters, and service requests.",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS total_emails\nFROM communications.emails_silver\nWHERE matched_company_id = 29447;",
+      "rows_returned": 1,
+      "duration_seconds": 5.632718086242676,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "12",
+          "12",
+          "12 emails"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_002",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "How many inbound emails have we received from this client?",
+      "answer": "We have received a total of **7 inbound emails** from this client. This indicates a consistent level of communication on their part.",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS inbound_email_count\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\n  AND direction = 'inbound';",
+      "rows_returned": 1,
+      "duration_seconds": 8.909211874008179,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "7",
+          "7",
+          "7 inbound"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_003",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "What is the best quote received for this account?",
+      "answer": "On **December 9, 2025**, Harper provided a quote for **$1,433.88** to Guardian Families Homecare, LLC via Atharva Bubna. The breakdown of the quote is as follows:\n- Premium and Carrier Fees: **$1,083.88**\n- Harper Service Fee: **$350.00**",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT sender_email,\n       sender_name,\n       subject,\n       body_text,\n       sent_date,\n       direction,\n       classification_raw->>'category' AS category\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\n  AND classification_raw->>'category' = 'QUOTE'\nORDER BY sent_date DESC\nLIMIT 10",
+      "rows_returned": 1,
+      "duration_seconds": 11.767799854278564,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response contains the expected value '$1,433.88', which is an acceptable variation of the expected answer. It also provides context about the quote, which is relevant to the question.",
+        "matched_values": [
+          "$1,433.88"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_004",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "Show me all emails sent to this company in the last 30 days",
+      "answer": "In the last 30 days, the following emails were sent to Guardian Families Homecare, LLC:\n\n- On **January 12, 2026**, Harper Service emailed to confirm updates to their mailing address due to undelivered correspondence about their GL policy.\n- On **January 9, 2026**, Next Insurance sent a cancellation notice for their general liability insurance and a subsequent email regarding their insurance reinstatement endorsement.",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT sender_email,\n       sender_name,\n       subject,\n       body_text,\n       sent_date,\n       direction,\n       classification_raw->>'category' AS category\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\n  AND sent_date > CURRENT_TIMESTAMP - INTERVAL '30 days'\nORDER BY sent_date DESC",
+      "rows_returned": 6,
+      "duration_seconds": 13.983175992965698,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a list of recent emails sent to the company within the last 30 days, including the dates and subjects of the emails, which aligns with the expected answer criteria.",
+        "matched_values": [
+          "On January 12, 2026, Harper Service emailed to confirm updates to their mailing address due to undelivered correspondence about their GL policy.",
+          "On January 9, 2026, Next Insurance sent a cancellation notice for their general liability insurance and a subsequent email regarding their insurance reinstatement endorsement."
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_005",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "Are there any unanswered emails or pending follow-ups?",
+      "answer": "I need a bit more information to answer your question.\n\n**What specific information are you looking for regarding unanswered emails or pending follow-ups? Are you interested in recent communications, specific types of follow-ups, or something else?**",
+      "passed": false,
+      "skill_detected": "phone_calls",
+      "skill_expected": "email_communications",
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 6.835479021072388,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.6,
+        "reasoning": "The assistant's response does not directly address the question about unanswered emails or pending follow-ups. Instead, it asks for more information, which does not fulfill the requirement to identify emails with the specified categories.",
+        "matched_values": [],
+        "missing_values": [
+          "FOLLOW_UP",
+          "CUSTOMER_FOLLOW_UP"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_006",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "When was the most recent email communication?",
+      "answer": "The most recent email communication was received from **guardianfamiliesfirst@gmail.com** on **January 12, 2026**, at **21:46:45 UTC**. The subject of the email was \"Re: Mailing address clarification - Guardian Families Homecare, LLC.\"",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT sender_email,\n       subject,\n       sent_date,\n       direction\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\nORDER BY sent_date DESC\nLIMIT 1",
+      "rows_returned": 1,
+      "duration_seconds": 8.224767923355103,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "january 12, 2026"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_007",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "What was the subject of the most recent email?",
+      "answer": "The subject of the most recent email was **\"Re: Mailing address clarification - Guardian Families Homecare, LLC.\"** This indicates a response regarding the mailing address for the client.",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT subject\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\nORDER BY sent_date DESC\nLIMIT 1",
+      "rows_returned": 1,
+      "duration_seconds": 6.481717824935913,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "mailing address"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "email_008",
+      "category": "individual_agent",
+      "subcategory": "email_communications",
+      "question": "Was the policy cancelled?",
+      "answer": "I need a bit more information to answer your question.\n\n**What would you like to know about the policy? Are you looking for details on whether it was cancelled, or do you need information on the cancellation process?**",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": "email_communications",
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 4.958042144775391,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.6,
+        "reasoning": "The assistant's response does not directly address whether the policy was cancelled. Instead, it asks for more information, which does not fulfill the requirement to explain the status of the policy cancellation.",
+        "matched_values": [],
+        "missing_values": [
+          "POLICY_CANCELLATION status"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "calls_001",
+      "category": "individual_agent",
+      "subcategory": "phone_calls",
+      "question": "What phone calls have been made with this company?",
+      "answer": "Here's a summary of the recent phone calls made with this company:\n\n- **January 9, 2026** (outgoing, answered): A Customer Representative expressed concern about a policy cancellation and confusion regarding the payment due date. Harper's Service Lead clarified the policy was canceled due to nonpayment and discussed reinstatement options, with the customer requesting an extension for payment.\n  \n- **December 10, 2025** (incoming, answered): A customer inquired about a **$600** charge from Allstate Insurance, which was clarified by Harper as not being processed by them.\n\n- **December 9, 2025** (incoming, answered): Atarva assisted Trinnel with his commercial insurance policy documents, confirming the policy is active and sending the certificate of insurance via email.\n\nThere were several other calls, including unanswered calls and voicemails, but no substantive discussions occurred in those instances.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT from_number,\n       to_number,\n       direction,\n       TYPE,\n       call_created_at,\n       recording_summary\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\nORDER BY call_created_at DESC;",
+      "rows_returned": 16,
+      "duration_seconds": 12.46004867553711,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a list of phone calls made with the company, including dates, directions (incoming/outgoing), and summaries of the discussions. This aligns with the expected answer criteria.",
+        "matched_values": [
+          "January 9, 2026 (outgoing, answered): A Customer Representative expressed concern about a policy cancellation and confusion regarding the payment due date.",
+          "December 10, 2025 (incoming, answered): A customer inquired about a $600 charge from Allstate Insurance.",
+          "December 9, 2025 (incoming, answered): Atarva assisted Trinnel with his commercial insurance policy documents."
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "calls_002",
+      "category": "individual_agent",
+      "subcategory": "phone_calls",
+      "question": "How many phone calls have been made with this company?",
+      "answer": "There have been a total of **16 phone calls** made with the company. This includes both incoming and outgoing calls.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS total_calls\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447;",
+      "rows_returned": 1,
+      "duration_seconds": 5.430873155593872,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "16",
+          "16"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "calls_003",
+      "category": "individual_agent",
+      "subcategory": "phone_calls",
+      "question": "Were there any voicemails left for this account?",
+      "answer": "Yes, there was a voicemail left for this account on **January 9, 2026**. The caller, identified as Chanel, requested a callback at their number, but did not discuss any specific insurance topics or raise any questions. \n\n**Action Item**: Harper should return the call to Chanel at the provided number.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT from_number,\n       to_number,\n       direction,\n       call_created_at,\n       recording_summary\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND TYPE = 'unanswered_with_voicemail'\nORDER BY call_created_at DESC",
+      "rows_returned": 1,
+      "duration_seconds": 9.318226099014282,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response confirms that there was a voicemail left for the account, which aligns with the expected answer criteria. It provides sufficient detail about the voicemail, including the date and caller's name, which adds context to the answer. The response includes 'Yes', which is one of the acceptable variations.",
+        "matched_values": [
+          "Yes"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "calls_004",
+      "category": "individual_agent",
+      "subcategory": "phone_calls",
+      "question": "How many incoming calls have we received?",
+      "answer": "Harper Insurance has received a total of **7 incoming calls**. If you need details about any specific calls, feel free to ask!",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS incoming_call_count\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND direction = 'incoming'",
+      "rows_returned": 1,
+      "duration_seconds": 6.433759927749634,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "7",
+          "7",
+          "7 incoming"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "calls_005",
+      "category": "individual_agent",
+      "subcategory": "phone_calls",
+      "question": "How many calls were answered?",
+      "answer": "There have been a total of **12 answered calls** recorded. This indicates consistent communication between Harper Insurance and clients.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS answered_call_count\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND TYPE = 'answered'",
+      "rows_returned": 1,
+      "duration_seconds": 5.785333156585693,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "12",
+          "12",
+          "12 answered"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "calls_006",
+      "category": "individual_agent",
+      "subcategory": "phone_calls",
+      "question": "What was the latest phone call conversation about?",
+      "answer": "The latest phone call occurred on **January 9, 2026** (outgoing, answered). The Customer Representative reached out to discuss a recent policy cancellation and confusion over the payment due date, believing it was due on that day. Harper's Service Lead clarified that the policy was canceled due to nonpayment but offered reinstatement if a new payment method was provided. The customer requested a short extension until their new debit card arrives, and they intend to follow up once they have the card information.\n\n**Action Item**: Await confirmation on whether the extension will be granted.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT from_number,\n       to_number,\n       direction,\n       TYPE,\n       call_created_at,\n       recording_summary,\n       classification_raw->>'call_intent' AS call_intent\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND TYPE = 'answered'\n  AND recording_summary IS NOT NULL\nORDER BY call_created_at DESC\nLIMIT 1",
+      "rows_returned": 1,
+      "duration_seconds": 11.23008108139038,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a detailed summary of the latest phone call conversation, addressing the customer's concerns about policy cancellation and payment due date. It captures the essence of the conversation and includes relevant details, making it a suitable open-ended response.",
+        "matched_values": [
+          "policy cancellation",
+          "payment due date",
+          "reinstatement",
+          "extension request"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "calls_007",
+      "category": "individual_agent",
+      "subcategory": "phone_calls",
+      "question": "When was the most recent phone call?",
+      "answer": "The most recent phone call occurred on **January 9, 2026** (outgoing, answered). The Customer Representative expressed concern about a recent policy cancellation and confusion regarding the payment due date. Harper's Service Lead clarified the cancellation was due to nonpayment and discussed options for reinstatement, but no commitment for an extension was made; the customer intends to follow up once their new debit card arrives.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT from_number,\n       to_number,\n       direction,\n       TYPE,\n       call_created_at,\n       recording_summary,\n       classification_raw->>'call_intent' AS call_intent\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND TYPE = 'answered'\n  AND recording_summary IS NOT NULL\nORDER BY call_created_at DESC\nLIMIT 1",
+      "rows_returned": 1,
+      "duration_seconds": 10.324868202209473,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "january 9, 2026"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "sms_001",
+      "category": "individual_agent",
+      "subcategory": "phone_messages",
+      "question": "Show me all text messages sent to this company",
+      "answer": "Here are the text messages sent to the company:\n\n- **December 10, 2025**: \"What do you mean?\" \n- **December 10, 2025**: \"Morning Trinnel\" \n- **December 9, 2025**: \"Hey Trinell, just missed your call. How can I help you?\" \n- **December 9, 2025**: \"Harper Insurance\"\n- **December 9, 2025**: \"Hey this is Atharva\" \n- **December 9, 2025**: \"Is this the correct email to send quotes to? guardianfamiliesfirst@gmail.com\" \n- **December 9, 2025**: \"What time are you free to chat?\" \n- **December 9, 2025**: \"We've just received a new quote for you.\" \n- **December 9, 2025**: \"Hey Trinnel - this is Atharva Bubna from Harper Insurance!\" \n- **December 9, 2025**: \"34) Do you prohibit driving if a driver is unlicensed, has a suspended/revoked license or has a major conviction such as DUI/DWI...\"\n\nThese messages reflect communication from Harper Insurance to the client.",
+      "passed": false,
+      "skill_detected": "phone_messages",
+      "skill_expected": "phone_messages",
+      "skill_match": true,
+      "sql_generated": "SELECT to_number,\n       message_body,\n       message_created_at\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447\n  AND direction = 'outgoing'\nORDER BY message_created_at DESC",
+      "rows_returned": 21,
+      "duration_seconds": 17.219678163528442,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.8,
+        "reasoning": "The assistant's response lists messages, but it incorrectly states that these messages reflect communication from Harper Insurance to the client, rather than showing messages sent to the company. The expected answer should specifically list SMS messages sent to the company, not from it.",
+        "matched_values": [
+          "December 10, 2025: 'What do you mean?'",
+          "December 10, 2025: 'Morning Trinnel'",
+          "December 9, 2025: 'Hey Trinell, just missed your call. How can I help you?'",
+          "December 9, 2025: 'Harper Insurance'",
+          "December 9, 2025: 'Hey this is Atharva'",
+          "December 9, 2025: 'Is this the correct email to send quotes to? guardianfamiliesfirst@gmail.com'",
+          "December 9, 2025: 'What time are you free to chat?'",
+          "December 9, 2025: 'We've just received a new quote for you.'",
+          "December 9, 2025: 'Hey Trinnel - this is Atharva Bubna from Harper Insurance!'",
+          "December 9, 2025: '34) Do you prohibit driving if a driver is unlicensed, has a suspended/revoked license or has a major conviction such as DUI/DWI...'"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "sms_002",
+      "category": "individual_agent",
+      "subcategory": "phone_messages",
+      "question": "What SMS communications have we had with the client?",
+      "answer": "Here's a summary of the SMS communications with the client:\n\n- **December 9, 2025**: Harper sent a welcoming message stating, \"Hey Trinnel! Thank you for choosing Harper - we're super excited to help you get fast coverage that fits your insurance needs!\" at **14:46**.\n- Additional messages included various questions regarding accreditation, quality assurance, and policies related to risk management and associations.\n\nIf you need details on specific messages or further analysis, let me know!",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": "phone_messages",
+      "skill_match": false,
+      "sql_generated": "SELECT message_body,\n       message_created_at\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447",
+      "rows_returned": 24,
+      "duration_seconds": 10.455739259719849,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.7,
+        "reasoning": "The assistant's response does not provide a bidirectional list of SMS messages as required. It only mentions one message sent by Harper and does not include any messages from the client or indicate the direction of the communication.",
+        "matched_values": [],
+        "missing_values": [
+          "list of SMS messages bidirectionally with direction"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "sms_003",
+      "category": "individual_agent",
+      "subcategory": "phone_messages",
+      "question": "How many text messages have been exchanged?",
+      "answer": "A total of **24 text messages** have been exchanged between the client and Harper. This includes both incoming and outgoing messages.",
+      "passed": true,
+      "skill_detected": "phone_messages",
+      "skill_expected": "phone_messages",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS total_messages\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447;",
+      "rows_returned": 1,
+      "duration_seconds": 6.855115175247192,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "24",
+          "24"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "sms_004",
+      "category": "individual_agent",
+      "subcategory": "phone_messages",
+      "question": "How many incoming text messages did we receive?",
+      "answer": "We received a total of **3 incoming text messages**.",
+      "passed": true,
+      "skill_detected": "phone_messages",
+      "skill_expected": "phone_messages",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS incoming_message_count\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447\n  AND direction = 'incoming'",
+      "rows_returned": 1,
+      "duration_seconds": 7.372938871383667,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "3",
+          "3",
+          "3 incoming"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "sms_005",
+      "category": "individual_agent",
+      "subcategory": "phone_messages",
+      "question": "When was the most recent text message?",
+      "answer": "The most recent text message was sent by Harper on **December 10, 2025** at **1:51 PM (UTC)**. The message content was: \"What do you mean?\".",
+      "passed": false,
+      "skill_detected": "phone_messages",
+      "skill_expected": "phone_messages",
+      "skill_match": true,
+      "sql_generated": "SELECT from_number,\n       to_number,\n       direction,\n       message_body,\n       message_created_at\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447\nORDER BY message_created_at DESC\nLIMIT 1",
+      "rows_returned": 1,
+      "duration_seconds": 12.38587498664856,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.8,
+        "reasoning": "The assistant's response does not contain the expected value 'January' or any of its acceptable variations. Instead, it provides a date in December 2025, which does not meet the criteria.",
+        "matched_values": [],
+        "missing_values": [
+          "January",
+          "2026-01",
+          "Jan 2026"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "doc_001",
+      "category": "individual_agent",
+      "subcategory": "documents",
+      "question": "How many documents does this company have?",
+      "answer": "The company currently has **13 documents** on record.",
+      "passed": true,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(d.id) AS document_count\nFROM public.documents_01_14 d\nJOIN public.companies_documents_join cdj ON d.id = cdj.attachment_id\nWHERE cdj.company_id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 6.877062082290649,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "13",
+          "13",
+          "13 documents"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "doc_002",
+      "category": "individual_agent",
+      "subcategory": "documents",
+      "question": "What types of documents does this company have?",
+      "answer": "The company has two types of documents: **PDF files** and **PNG images**. These formats may be used for various purposes, such as reports or visual content.",
+      "passed": true,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "SELECT d.metadata->>'content_type' AS content_type\nFROM public.documents_01_14 d\nJOIN public.companies_documents_join cdj ON d.id = cdj.attachment_id\nWHERE cdj.company_id = 29447\nGROUP BY d.metadata->>'content_type'",
+      "rows_returned": 2,
+      "duration_seconds": 7.87117600440979,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "pdf",
+          "png"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "doc_003",
+      "category": "individual_agent",
+      "subcategory": "documents",
+      "question": "List all PDF documents for this company",
+      "answer": "Here are the PDF documents for the company:\n\n- **Reinstate_Agreement_NKL.pdf** (Size: **633,199 bytes**) - Created on January 9, 2026\n- **Reinstate_Endorsement_GL.pdf** (Size: **156,593 bytes**) - Created on January 9, 2026\n- **Trinnel_Guice_20255309_85308.pdf** (Size: **10,185 bytes**) - Created on January 9, 2026\n- **MergedLossRunReport-2026-01-09-4nwuez.pdf** (Size: **189,519 bytes**) - Created on January 9, 2026\n- **Trinnel_Guice_2026-01-09_lSd2seLHdsH7SQTL_receipt.pdf** (Size: **510,910 bytes**) - Created on January 9, 2026\n- **Cancellation_Endorsement.pdf** (Size: **156,572 bytes**) - Created on January 9, 2026\n- **Guardian_Families_Homecare__LLC_POI_-_700812181.pdf** (Size: **203,901 bytes**) - Created on December 9, 2025\n- **NXTKCJ99LW-00-GL-policy-0000.pdf** (Size: **3,935,585 bytes**) - Created on December 9, 2025\n- **agent-quote-summary-1765304164422.pdf** (Size: **466,636 bytes**) - Created on December 9, 2025\n- **YOURINSURANCEDOCUMENTS-3223093379856.PDF** (Size: **71,743 bytes**) - Created on December 9, 2025\n\nIf you need further details on any specific document, let me know!",
+      "passed": false,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "SELECT d.id,\n       d.metadata->>'filename' AS filename,\n                    d.metadata->>'content_type' AS content_type,\n                                 d.metadata->>'file_size' AS file_size,\n                                              d.created_at,\n                                              d.parsed_at\nFROM public.documents_01_14 d\nJOIN public.companies_documents_join cdj ON d.id = cdj.attachment_id\nWHERE cdj.company_id = 29447\n  AND d.metadata->>'content_type' = 'application/pdf'\nORDER BY d.created_at DESC",
+      "rows_returned": 12,
+      "duration_seconds": 21.904132843017578,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.8,
+        "reasoning": "The assistant's response lists only 10 PDF documents instead of the expected 12. While the filenames are provided, the quantity does not meet the requirement.",
+        "matched_values": [
+          "Reinstate_Agreement_NKL.pdf",
+          "Reinstate_Endorsement_GL.pdf",
+          "Trinnel_Guice_20255309_85308.pdf",
+          "MergedLossRunReport-2026-01-09-4nwuez.pdf",
+          "Trinnel_Guice_2026-01-09_lSd2seLHdsH7SQTL_receipt.pdf",
+          "Cancellation_Endorsement.pdf",
+          "Guardian_Families_Homecare__LLC_POI_-_700812181.pdf",
+          "NXTKCJ99LW-00-GL-policy-0000.pdf",
+          "agent-quote-summary-1765304164422.pdf",
+          "YOURINSURANCEDOCUMENTS-3223093379856.PDF"
+        ],
+        "missing_values": [
+          "2 additional PDF documents"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "doc_004",
+      "category": "individual_agent",
+      "subcategory": "documents",
+      "question": "What are the filenames of all documents?",
+      "answer": "The documents include the following filenames:\n\n- State Packet - DE.pdf\n- image002.png (appears multiple times)\n- image001.png (appears multiple times)\n- quoteproposal (133).pdf\n- icon.png\n\nPlease note there are additional 307 rows of documents not listed here.",
+      "passed": false,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "SELECT d.metadata->>'filename' AS filename\nFROM public.documents_01_14 d",
+      "rows_returned": 317,
+      "duration_seconds": 10.860414266586304,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.7,
+        "reasoning": "The assistant's response does not list all 13 document filenames as required. It only provides a partial list and mentions additional documents without specifying them. Therefore, it does not meet the expected answer criteria.",
+        "matched_values": [
+          "State Packet - DE.pdf",
+          "image002.png",
+          "image001.png",
+          "quoteproposal (133).pdf",
+          "icon.png"
+        ],
+        "missing_values": [
+          "8 additional filenames that are not listed"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "docsearch_001",
+      "category": "individual_agent",
+      "subcategory": "document_search",
+      "question": "What does the insurance policy document say about coverage?",
+      "answer": "According to **NXTKCJ99LW-00-GL-policy-0000.pdf**, the insurance policy provides coverage for several types, including **Commercial General Liability, Liquor Liability, Employee Related Practices Liability, Privacy and Network Liability, Commercial Umbrella Excess, and Professional Liability**. The document states: \"Types of Coverage: Commercial General Liability, Liquor Liability, Employee Related Practices Liability, Privacy and Network Liability, Commercial Umbrella Excess, Professional Liability.\"",
+      "passed": true,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 8.087876081466675,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "document_search",
+        "expected_route": "document_search",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 13
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response accurately summarizes the types of coverage mentioned in the insurance policy document, which aligns with the expected answer criteria. It provides a clear list of coverage types, demonstrating relevance to the question asked.",
+        "matched_values": [
+          "Commercial General Liability",
+          "Liquor Liability",
+          "Employee Related Practices Liability",
+          "Privacy and Network Liability",
+          "Commercial Umbrella Excess",
+          "Professional Liability"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "docsearch_002",
+      "category": "individual_agent",
+      "subcategory": "document_search",
+      "question": "Search for information about liability in the documents",
+      "answer": "The documents contain several references to liability coverage for Guardian Families Homecare, LLC. Here are the key details:\n\n1. **Commercial General Liability Coverage**:\n   - According to **YOURINSURANCEDOCUMENTS-3223093379856.PDF**, the coverage details include:\n     - **Product**: Commercial General Liability\n     - **Per Occurrence Limit**: $1,000,000\n     - **Aggregate Limit**: $2,000,000\n     - **Deductible**: $0\n     - The document states: \"Coverage applies only to occurrences during the policy period; prior occurrences are excluded; fraud may void the policy.\"\n\n2. **Certificate of Liability Insurance**:\n   - In **Guardian_Families_Homecare__LLC_POI_-_700812181.pdf**, it mentions:\n     - **Coverage**: Commercial General Liability\n     - **Limits**: $1,000,000 per occurrence, $500,000 property damage, and $100,000 bodily injury per person.\n     - The document states: \"The certificate does not confer rights to the certificate holder and does not amend or alter the coverage.\"\n\n3. **Claims Report**:\n   - The **MergedLossRunReport-2026-01-09-4nwuez.pdf** indicates:\n     - **Policy Type**: General Liability\n     - **Claims Reported**: No claims reported for this policy term.\n\nThese documents collectively provide a comprehensive overview of the liability coverage associated with Guardian Families Homecare, LLC.",
+      "passed": false,
+      "skill_detected": "documents",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 13.14811110496521,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "document_search",
+        "expected_route": "document_search",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 13
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a detailed overview of liability coverage found in the documents, which aligns with the request for information about liability. It includes specific details about the Commercial General Liability coverage, limits, and relevant documents, fulfilling the open-ended criteria.",
+        "matched_values": [
+          "liability coverage",
+          "Commercial General Liability",
+          "limits",
+          "deductible"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "docsearch_003",
+      "category": "individual_agent",
+      "subcategory": "document_search",
+      "question": "What is the premium amount mentioned in the policy documents?",
+      "answer": "According to **NXTKCJ99LW-00-GL-policy-0000.pdf**, the premium amount is **$1,036.00**. The document states: \"Premium: $1,036.00.\" \n\nAdditionally, **Trinnel_Guice_2026-01-09_lSd2seLHdsH7SQTL_receipt.pdf** also confirms the premium amount of **$1,036.00**: \"Actual Premium: $1,036.00.\"",
+      "passed": true,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 5.6164069175720215,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "document_search",
+        "expected_route": "document_search",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 13
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 1.0,
+        "reasoning": "The assistant's response correctly identifies the premium amount as '$1,036.00', which matches one of the acceptable variations specified in the expected answer criteria.",
+        "matched_values": [
+          "$1,036.00"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "docsearch_004",
+      "category": "individual_agent",
+      "subcategory": "document_search",
+      "question": "What are the policy limits according to the documents?",
+      "answer": "According to **YOURINSURANCEDOCUMENTS-3223093379856.PDF**, the policy limits are as follows: \n\n- **Per Occurrence Limit:** $1,000,000 \n- **Aggregate Limit:** $2,000,000 \n\nThe document states: \"Coverage Details: Product - Commercial General Liability; Per Occurrence Limit - $1,000,000; Aggregate Limit - $2,000,000.\" \n\nAdditionally, **Guardian_Families_Homecare__LLC_POI_-_700812181.pdf** also mentions coverage limits of **$1,000,000 per occurrence**, **$500,000 property damage**, and **$100,000 bodily injury per person**. The document states: \"Coverage includes Commercial General Liability with limits of $1,000,000 per occurrence, $500,000 property damage, and $100,000 bodily injury per person.\"",
+      "passed": false,
+      "skill_detected": "documents",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 9.806304931640625,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "document_search",
+        "expected_route": "document_search",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 13
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response accurately identifies and lists the policy limits from the provided documents, addressing the question directly. It includes multiple coverage limits, which aligns with the open-ended expected answer criteria.",
+        "matched_values": [
+          "$1,000,000 per occurrence",
+          "$2,000,000 aggregate",
+          "$500,000 property damage",
+          "$100,000 bodily injury per person"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_001a",
+      "category": "memory",
+      "subcategory": "follow_up",
+      "question": "How many emails did we receive from this client?",
+      "answer": "We received a total of **7 emails** from the client.",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS email_count\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\n  AND direction = 'inbound'",
+      "rows_returned": 1,
+      "duration_seconds": 7.12692403793335,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "7",
+          "7 emails",
+          "7"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_001b",
+      "category": "memory",
+      "subcategory": "follow_up",
+      "question": "What about outbound?",
+      "answer": "I need a bit more information to answer your question.\n\n**What specific outbound communications are you interested in? Emails, phone calls, or text messages?**",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": "email_communications",
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 3.220473051071167,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_002a",
+      "category": "memory",
+      "subcategory": "follow_up",
+      "question": "When was the most recent phone call?",
+      "answer": "The most recent phone call occurred on **January 9, 2026** (outgoing, answered). The customer reached out to discuss a policy cancellation and confusion regarding their payment due date. Harper's team clarified the situation and discussed reinstatement options, with a pending decision on granting a short extension for the customer to make the payment once their new debit card arrives.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT from_number,\n       to_number,\n       direction,\n       TYPE,\n       call_created_at,\n       recording_summary\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND TYPE = 'answered'\n  AND recording_summary IS NOT NULL\nORDER BY call_created_at DESC\nLIMIT 1",
+      "rows_returned": 1,
+      "duration_seconds": 9.830834865570068,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "january 9, 2026"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_002b",
+      "category": "memory",
+      "subcategory": "follow_up",
+      "question": "What was discussed?",
+      "answer": "The call took place on **January 9, 2026** (outgoing, answered). The Customer Representative expressed concern about a recent policy cancellation and confusion regarding the payment due date, believing it was due on the ninth. Harper's Service Lead clarified that the policy was canceled due to nonpayment and offered reinstatement if a new payment method was provided. The Customer Representative requested a short extension until their new debit card arrives, and there is an open item regarding whether this extension will be granted.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT from_number,\n       to_number,\n       direction,\n       TYPE,\n       call_created_at,\n       recording_summary,\n       classification_raw->>'call_intent' AS call_intent\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND TYPE = 'answered'\n  AND recording_summary IS NOT NULL\nORDER BY call_created_at DESC\nLIMIT 1",
+      "rows_returned": 1,
+      "duration_seconds": 12.476631164550781,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a detailed summary of the call, addressing the main topics discussed, including the policy cancellation, payment due date confusion, and the request for an extension. This aligns well with the expected open-ended answer criteria.",
+        "matched_values": [
+          "policy cancellation",
+          "payment due date",
+          "reinstatement",
+          "extension request"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_003a",
+      "category": "memory",
+      "subcategory": "follow_up",
+      "question": "Tell me about the business",
+      "answer": "Guardian Families Homecare, LLC is a healthcare company based in Indianapolis, Indiana, specializing in home care services for the elderly and medical needs. It has been in business for 2 years, generates an annual revenue of **$150,000**, and employs 2 full-time and 2 part-time staff members. For inquiries, you can reach them at **+1 (317) 365-7605** or via email at **guardianfamiliesfirst@gmail.com**.",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "SELECT company_name,\n       company_primary_phone,\n       company_primary_email,\n       company_description,\n       company_industry,\n       company_sub_industry,\n       company_street_address_1,\n       company_city,\n       company_state,\n       company_postal_code,\n       company_website,\n       company_annual_revenue_usd,\n       company_full_time_employees,\n       company_part_time_employees,\n       company_years_in_business\nFROM public.companies\nWHERE id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 9.828135251998901,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "guardian families homecare",
+          "healthcare"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_003b",
+      "category": "memory",
+      "subcategory": "follow_up",
+      "question": "How many employees?",
+      "answer": "Harper Insurance has a total of **4 employees**. If you need more information about the team or the company's operations, feel free to ask!",
+      "passed": true,
+      "skill_detected": "companies_data",
+      "skill_expected": "companies_data",
+      "skill_match": true,
+      "sql_generated": "SELECT company_full_time_employees + company_part_time_employees AS total_employees\nFROM public.companies\nWHERE id = 29447",
+      "rows_returned": 1,
+      "duration_seconds": 11.579577922821045,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "4"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_004a",
+      "category": "memory",
+      "subcategory": "pronoun_resolution",
+      "question": "Show me the recent emails",
+      "answer": "Recent emails include:\n\n- **January 12, 2026**: Guardian Families followed up regarding their mailing address after Harper requested confirmation of any changes to ensure they receive important notifications.\n- **January 9, 2026**: Next Insurance sent a cancellation notice for the general liability insurance policy for Guardian Families Homecare, LLC, and an email confirming the reinstatement endorsement on the same day.\n\nFor detailed inquiries, please specify!",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT sender_email,\n       sender_name,\n       subject,\n       body_text,\n       sent_date,\n       direction,\n       classification_raw->>'category' AS category\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\nORDER BY sent_date DESC\nLIMIT 15",
+      "rows_returned": 12,
+      "duration_seconds": 11.641435146331787,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a list of recent emails, including their dates and subjects, which aligns with the expected answer criteria. The format is clear and contains multiple items, fulfilling the requirement for a list.",
+        "matched_values": [
+          "January 12, 2026: Guardian Families followed up regarding their mailing address",
+          "January 9, 2026: Next Insurance sent a cancellation notice for the general liability insurance policy"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_004b",
+      "category": "memory",
+      "subcategory": "pronoun_resolution",
+      "question": "Which of those were about cancellation?",
+      "answer": "The documents that pertain to cancellation are:\n\n1. **Cancellation_Endorsement.pdf**\n   - This document details the cancellation of the policy effective **01/09/2026** and mentions a total return premium of **$948.01**. The document states: \"The policy is canceled effective 01/09/2026 in consideration of the returned premium.\"\n\n2. **Trinnel_Guice_2026-01-09_lSd2seLHdsH7SQTL_receipt.pdf**\n   - This document summarizes the cancellation of the policy on **01/09/2026** and notes that the policy is currently canceled. It states: \"Policy Period: 12/09/2025 to 01/09/2026; Cancellation Date: 01/09/2026.\"\n\n3. **Reinstate_Endorsement_GL.pdf**\n   - This document discusses the reinstatement of the policy effective **01/09/2026**, indicating that there was a previous cancellation. It states: \"The policy is reinstated effective 01/09/2026 in consideration of the additional premium.\"\n\n4. **Reinstate_Agreement_NKL.pdf**\n   - This document is a reinstatement agreement following a cancellation, effective **01/09/2026**. It states: \"The insured certifies no knowledge of any claims or losses from the cancellation date to the present.\"\n\nThese documents collectively address the cancellation and subsequent reinstatement of the insurance policy for Guardian Families Homecare, LLC.",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": "email_communications",
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 11.016593217849731,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "document_search",
+        "expected_route": "sql_only",
+        "route_match": false,
+        "execution_path": [
+          "supervisor",
+          "document_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 13
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response correctly identifies and lists documents related to cancellation, which aligns with the expected answer criteria. It provides relevant details about each document, confirming their connection to the cancellation of the policy.",
+        "matched_values": [
+          "Cancellation_Endorsement.pdf",
+          "Trinnel_Guice_2026-01-09_lSd2seLHdsH7SQTL_receipt.pdf",
+          "Reinstate_Endorsement_GL.pdf",
+          "Reinstate_Agreement_NKL.pdf"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_005a",
+      "category": "memory",
+      "subcategory": "context_switch",
+      "question": "What documents do they have?",
+      "answer": "Here are the documents available:\n\n- **Reinstate Agreement NKL** (Created on January 9, 2026)\n- **Reinstate Endorsement GL** (Created on January 9, 2026)\n- **Trinnel Guice Document** (Created on January 9, 2026)\n- **Merged Loss Run Report** (Created on January 9, 2026)\n- **Trinnel Guice Receipt** (Created on January 9, 2026)\n- **Cancellation Endorsement** (Created on January 9, 2026)\n- **Guardian Families Homecare LLC POI** (Created on December 9, 2025)\n- **GL Policy Document** (Created on December 9, 2025)\n- **Agent Quote Summary** (Created on December 9, 2025)\n- **Your Insurance Documents** (Created on December 9, 2025)\n\nIf you need more details about any specific document, let me know!",
+      "passed": false,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "SELECT d.id,\n       d.metadata->>'filename' AS filename,\n                    d.metadata->>'content_type' AS content_type,\n                                 d.metadata->>'file_size' AS file_size,\n                                              d.created_at,\n                                              d.parsed_at\nFROM public.documents_01_14 d\nJOIN public.companies_documents_join cdj ON d.id = cdj.attachment_id\nWHERE cdj.company_id = 29447\nORDER BY d.created_at DESC",
+      "rows_returned": 13,
+      "duration_seconds": 14.423607110977173,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "mem_005b",
+      "category": "memory",
+      "subcategory": "context_switch",
+      "question": "What about their calls?",
+      "answer": "I need a bit more information to answer your question.\n\n**What specific information about their calls would you like to see? Recent calls, missed calls, or details about service requests?**",
+      "passed": false,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 4.281592130661011,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "multi_001",
+      "category": "multi_agent",
+      "subcategory": "union_query",
+      "question": "Give me a complete overview of all communications with this company",
+      "answer": "Here's what's been happening with Guardian Families Homecare, LLC:\n\n- On January 12, 2026, there were two emails exchanged regarding a mailing address clarification. The email from Harper Insurance was sent to guardianfamiliesfirst@gmail.com, and they responded shortly after.\n- On January 9, 2026, a call was made to a Harper Sales Agent regarding a policy cancellation and payment confusion, while another call from a customer representative resulted in a voicemail requesting a callback.\n\nOverall, there were 5 emails and 4 phone calls documented in this communication history.",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "SELECT 'email' AS TYPE,\n       sent_date AS timestamp,\n       subject AS SUMMARY,\n       sender_email AS contact,\n       direction\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\nUNION ALL\nSELECT 'call' AS TYPE,\n       call_created_at AS timestamp,\n       recording_summary AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\nUNION ALL\nSELECT 'sms' AS TYPE,\n       message_created_at AS timestamp,\n       message_body AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447\nORDER BY timestamp DESC",
+      "rows_returned": 52,
+      "duration_seconds": 13.596222877502441,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.8,
+        "reasoning": "The assistant's response does not contain the expected values of '12', '16', or '24', nor does it include any of the acceptable variations. Instead, it provides a total of 5 emails and 4 calls, which does not meet the criteria.",
+        "matched_values": [],
+        "missing_values": [
+          "12",
+          "16",
+          "24",
+          "52 total",
+          "12 emails",
+          "16 calls",
+          "24 SMS"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "multi_002",
+      "category": "multi_agent",
+      "subcategory": "union_query",
+      "question": "What is the total number of communications (emails + calls + messages)?",
+      "answer": "The total number of communications, which includes emails, calls, and messages, is **52**. This reflects the overall engagement with clients.",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(*) AS total_communications\nFROM\n  (SELECT id\n   FROM communications.emails_silver\n   WHERE matched_company_id = 29447\n   UNION ALL SELECT id\n   FROM communications.phone_call_silver\n   WHERE matched_company_id = 29447\n   UNION ALL SELECT id\n   FROM communications.phone_message_silver\n   WHERE matched_company_id = 29447) AS combined_communications",
+      "rows_returned": 1,
+      "duration_seconds": 7.492011785507202,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.95,
+        "reasoning": "Rule-based evaluation for type 'exact'",
+        "matched_values": [
+          "52",
+          "52"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "multi_003",
+      "category": "multi_agent",
+      "subcategory": "union_query",
+      "question": "What's going on with this account?",
+      "answer": "Here's what's been happening with this account:\n\n- On January 9, 2026, a cancellation notice for general liability insurance was received from **hello@nextinsurance.com**.\n- Subsequent emails and calls were made concerning the reinstatement of the policy and clarification of mailing addresses, with an inbound email from **guardianfamiliesfirst@gmail.com** on January 12, 2026, regarding this matter. \n\nFurther follow-up may be necessary to address the cancellation and ensure the policy is reinstated.",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "SELECT 'email' AS TYPE,\n       sent_date AS timestamp,\n       subject AS SUMMARY,\n       sender_email AS contact,\n       direction\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\nUNION ALL\nSELECT 'call' AS TYPE,\n       call_created_at AS timestamp,\n       recording_summary AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\nUNION ALL\nSELECT 'sms' AS TYPE,\n       message_created_at AS timestamp,\n       message_body AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447\nORDER BY timestamp DESC\nLIMIT 20",
+      "rows_returned": 20,
+      "duration_seconds": 16.4791898727417,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.8,
+        "reasoning": "The assistant's response provides a timeline of events related to the account, detailing the cancellation notice and subsequent communications. It effectively combines different types of communication and orders them by date, which aligns with the expected answer criteria.",
+        "matched_values": [
+          "January 9, 2026 - cancellation notice received",
+          "January 12, 2026 - inbound email regarding reinstatement"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "multi_004",
+      "category": "multi_agent",
+      "subcategory": "union_query",
+      "question": "Show me all activity for this company in the last 30 days",
+      "answer": "In the last 30 days, there have been several activities related to Guardian Families Homecare, LLC, including:\n\n- **4 emails** received from different contacts, with topics such as mailing address clarification and a cancellation notice for general liability insurance.\n- **5 phone calls**, including an outgoing call regarding a policy cancellation and an incoming call from a representative leaving a voicemail.\n\nNotably, on January 9, 2026, an email concerning your insurance reinstatement was also received.",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "SELECT 'email' AS TYPE,\n       sent_date AS timestamp,\n       subject AS SUMMARY,\n       sender_email AS contact,\n       direction\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\n  AND sent_date >= NOW() - INTERVAL '30 days'\nUNION ALL\nSELECT 'call' AS TYPE,\n       call_created_at AS timestamp,\n       recording_summary AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\n  AND call_created_at >= NOW() - INTERVAL '30 days'\nUNION ALL\nSELECT 'sms' AS TYPE,\n       message_created_at AS timestamp,\n       message_body AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447\n  AND message_created_at >= NOW() - INTERVAL '30 days'\nORDER BY timestamp DESC",
+      "rows_returned": 11,
+      "duration_seconds": 15.400835990905762,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a list of recent activities related to the company, including emails and phone calls, which aligns with the expected answer criteria of showing recent activity across all communication channels with a date filter. The activities are clearly listed and relevant to the last 30 days.",
+        "matched_values": [
+          "4 emails",
+          "5 phone calls",
+          "January 9, 2026"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "multi_005",
+      "category": "multi_agent",
+      "subcategory": "hybrid_query",
+      "question": "What documents does this company have and what do they contain?",
+      "answer": "Harper Insurance has a variety of important documents related to their insurance policies, particularly concerning Guardian Families Homecare, LLC and Trinnel Guice. Here\u2019s a summary of the key documents and their contents:\n\n1. **Reinstatement Agreement**: Effective January 9, 2026, this document confirms the reinstatement of the General Liability policy for Trinnel Guice, detailing the premium of $130.23.\n\n2. **Endorsements**: There are several endorsements affecting Guardian Families Homecare, LLC's policies:\n   - A **Cancellation Endorsement** effective January 9, 2026, which cancels the Commercial General Liability coverage and specifies a total return premium of $948.01.\n   - A **Reinstatement Endorsement** effective January 9, 2026, which reinstates the General Liability coverage for an additional premium of $86.34.\n\n3. **Insurance Applications**: The application for Trinnel Guice was submitted on December 9, 2025, detailing General Liability insurance with exclusions for patient transportation.\n\n4. **Insurance Policy Summary**: This document outlines the General Liability coverage for Guardian Families Homecare, LLC with an effective policy period from December 9, 2025, to January 9, 2026, and an actual premium of $1,036.00.\n\n5. **Claims Report**: A report indicating that no claims have been reported for the General Liability policy during its current term, which runs from December 9, 2025, to January 9, 2026.\n\n6. **Certificates of Liability Insurance**: This certificate confirms the General Liability coverage for Guardian Families Homecare, LLC, with limits of $1,000,000 per occurrence, effective from December 9, 2025, to January 9, 2026.\n\n7. **Quotes and Proposals**:\n   - A **Decline Letter** dated December 9, 2025, indicating a declined product for General Liability due to risk being outside of Hiscox's underwriting appetite.\n   - An **Agent Quote Summary** from the same date, offering General Liability coverage with a yearly premium of $1,036.00.\n\n8. **In",
+      "passed": false,
+      "skill_detected": "documents",
+      "skill_expected": "documents",
+      "skill_match": true,
+      "sql_generated": "SELECT d.id,\n       d.metadata->>'filename' AS filename,\n                    d.parsed_content,\n                    d.document_summary,\n                    d.created_at,\n                    d.parsed_at\nFROM public.documents_01_14 d\nJOIN public.companies_documents_join cdj ON d.id = cdj.attachment_id\nWHERE cdj.company_id = 29447\nORDER BY d.created_at DESC",
+      "rows_returned": 13,
+      "duration_seconds": 46.14089512825012,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "hybrid",
+        "expected_route": "hybrid",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "document_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "document_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 13
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.7,
+        "reasoning": "The assistant's response lists only 8 documents instead of the required 13, which does not meet the expected answer criteria. While the summaries provided are relevant and detailed, the quantity of documents is insufficient.",
+        "matched_values": [
+          "Reinstatement Agreement",
+          "Endorsements",
+          "Insurance Applications",
+          "Insurance Policy Summary",
+          "Claims Report",
+          "Certificates of Liability Insurance",
+          "Quotes and Proposals",
+          "Insurance Policy Declarations"
+        ],
+        "missing_values": [
+          "5 more documents with their summaries"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "multi_006",
+      "category": "multi_agent",
+      "subcategory": "aggregation",
+      "question": "What percentage of calls were answered?",
+      "answer": "Seventy-five percent (75%) of the calls were answered. This indicates a strong response rate for incoming communications.",
+      "passed": true,
+      "skill_detected": "phone_calls",
+      "skill_expected": "phone_calls",
+      "skill_match": true,
+      "sql_generated": "SELECT (COUNT(CASE\n                  WHEN TYPE = 'answered' THEN 1\n              END) * 100.0 / COUNT(*)) AS answered_percentage\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447;",
+      "rows_returned": 1,
+      "duration_seconds": 7.516530990600586,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 1.0,
+        "reasoning": "The assistant's response correctly states that 75% of the calls were answered, which matches the expected value and acceptable variations.",
+        "matched_values": [
+          "75%",
+          "75"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "multi_007",
+      "category": "multi_agent",
+      "subcategory": "aggregation",
+      "question": "What is the ratio of inbound to outbound emails?",
+      "answer": "The ratio of inbound to outbound emails is **7:4**. This indicates that there were **7 inbound emails** received compared to **4 outbound emails** sent.",
+      "passed": true,
+      "skill_detected": "email_communications",
+      "skill_expected": "email_communications",
+      "skill_match": true,
+      "sql_generated": "SELECT COUNT(CASE\n                 WHEN direction = 'inbound' THEN 1\n             END) AS inbound_count,\n       COUNT(CASE\n                 WHEN direction = 'outbound' THEN 1\n             END) AS outbound_count\nFROM communications.emails_silver\nWHERE matched_company_id = 29447;",
+      "rows_returned": 1,
+      "duration_seconds": 5.845157861709595,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "Rule-based evaluation for type 'contains'",
+        "matched_values": [
+          "7",
+          "4"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_vague_001",
+      "category": "edge_cases",
+      "subcategory": "vague_question",
+      "question": "Show me stuff",
+      "answer": "I'm here to help! What specific information about insurance are you looking for?",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 3.045724868774414,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "sql_only",
+        "route_match": false,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response correctly asks for clarification about what specific information the user is looking for, which aligns with the expected answer criteria.",
+        "matched_values": [
+          "specific information"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_vague_002",
+      "category": "edge_cases",
+      "subcategory": "vague_question",
+      "question": "Give me data",
+      "answer": "I need a bit more information to answer your question.\n\n**What data are you looking for? Recent activity, contact info, or something specific?**",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 4.610010147094727,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response correctly asks for clarification by requesting more information about the type of data the user is looking for. This aligns with the expected answer criteria.",
+        "matched_values": [
+          "I need a bit more information",
+          "What data are you looking for?"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_vague_003",
+      "category": "edge_cases",
+      "subcategory": "vague_question",
+      "question": "What about them?",
+      "answer": "I'm here to help! Could you provide a bit more detail about what you're asking?",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 4.398581027984619,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "sql_only",
+        "route_match": false,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response asks for more detail about the user's inquiry, which aligns with the expected answer criteria for clarification. It effectively prompts the user to specify what information they need.",
+        "matched_values": [],
+        "missing_values": [
+          "what specific information about the company is needed"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_vague_004",
+      "category": "edge_cases",
+      "subcategory": "vague_question",
+      "question": "Tell me more",
+      "answer": "I'd love to help! What specific information are you interested in regarding insurance?",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 4.002277135848999,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "sql_only",
+        "route_match": false,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response correctly asks for specific information regarding insurance, which aligns with the expected criteria for clarification. It effectively prompts the user to specify what aspect they want more detail about.",
+        "matched_values": [
+          "specific information",
+          "insurance"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_chat_001",
+      "category": "edge_cases",
+      "subcategory": "chitchat",
+      "question": "Hello",
+      "answer": "Hello! How can I assist you with insurance information today?",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 2.8642497062683105,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 1.0,
+        "reasoning": "The assistant's response contains 'Hello!', which matches the expected value of 'hello' and is also an acceptable variation. Additionally, it offers assistance, which is relevant to the user's inquiry.",
+        "matched_values": [
+          "Hello!"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_chat_002",
+      "category": "edge_cases",
+      "subcategory": "chitchat",
+      "question": "How are you today?",
+      "answer": "I'm doing well, thank you! How can I help you with insurance information today?",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 2.978361129760742,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response is friendly and addresses the question about how it is doing. It does not query a database, which aligns with the expected criteria.",
+        "matched_values": [
+          "I'm doing well, thank you!"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_chat_003",
+      "category": "edge_cases",
+      "subcategory": "chitchat",
+      "question": "Thanks!",
+      "answer": "You're welcome! How can I assist you with insurance information today?",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 3.409775972366333,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response includes an acknowledgment ('You're welcome!') and also invites further engagement by asking how it can assist with insurance information, which is relevant to the context.",
+        "matched_values": [
+          "You're welcome"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_chat_004",
+      "category": "edge_cases",
+      "subcategory": "chitchat",
+      "question": "What can you do?",
+      "answer": "I'm here to help you with insurance information, including quotes, policy details, and more! How can I assist you today?",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 5.180976867675781,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.7,
+        "reasoning": "The assistant's response does not provide a comprehensive description of its capabilities, such as handling emails, calls, documents, or company information. It only mentions insurance information, quotes, and policy details, which is not sufficient to meet the expected answer criteria.",
+        "matched_values": [
+          "insurance information",
+          "quotes",
+          "policy details"
+        ],
+        "missing_values": [
+          "emails",
+          "calls",
+          "documents",
+          "company info"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_chat_005",
+      "category": "edge_cases",
+      "subcategory": "chitchat",
+      "question": "Good morning!",
+      "answer": "Good morning! How can I assist you with insurance information today?",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 4.195849895477295,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response is a friendly greeting and expands on it by offering assistance, which aligns well with the expected open-ended response criteria.",
+        "matched_values": [
+          "Good morning!"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_offtopic_001",
+      "category": "edge_cases",
+      "subcategory": "off_topic",
+      "question": "What's the weather like?",
+      "answer": "I'm not sure about the weather, but I'm here to help you with any insurance questions you might have!",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 3.9076859951019287,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response correctly redirects the user from the weather question to insurance-related queries, which aligns with the expected answer criteria.",
+        "matched_values": [],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_offtopic_002",
+      "category": "edge_cases",
+      "subcategory": "off_topic",
+      "question": "Write me a poem about insurance",
+      "answer": "That's a fun request! While I can't write poems, I can help you with any insurance-related questions you might have. How can I assist you today?",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 4.507509708404541,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": false,
+        "confidence": 0.7,
+        "reasoning": "The assistant's response does not fulfill the request for a poem about insurance, as it explicitly states that it cannot write poems. Instead, it redirects to answering insurance-related questions, which does not align with the expected creative response.",
+        "matched_values": [],
+        "missing_values": [
+          "poem about insurance"
+        ]
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_offtopic_003",
+      "category": "edge_cases",
+      "subcategory": "off_topic",
+      "question": "Can you book me a flight?",
+      "answer": "I'm here to help with insurance-related questions! How can I assist you today?",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 3.1104178428649902,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response correctly addresses the user's request by politely redirecting the focus to insurance-related questions, which aligns with the expected answer criteria.",
+        "matched_values": [],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_typo_001",
+      "category": "edge_cases",
+      "subcategory": "typo",
+      "question": "How are yo",
+      "answer": "I'm doing well, thank you! How can I help you with insurance information today?",
+      "passed": false,
+      "skill_detected": "general",
+      "skill_expected": null,
+      "skill_match": false,
+      "sql_generated": "",
+      "rows_returned": 0,
+      "duration_seconds": 3.189220905303955,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "conversational",
+        "expected_route": "conversational",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "conversational"
+        ],
+        "expected_agents": [
+          "supervisor"
+        ],
+        "agents_match": false,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response acknowledges the greeting and provides a relevant follow-up question about insurance, which aligns with the expected open-ended nature of the response. Although the original question was truncated, the assistant effectively recognized it as a greeting.",
+        "matched_values": [
+          "greeting",
+          "chitchat"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_typo_002",
+      "category": "edge_cases",
+      "subcategory": "typo",
+      "question": "Shwo me emials",
+      "answer": "Here are the recent emails related to Guardian Families Homecare, LLC:\n\n- **December 9, 2025**: Dakota H. sent a quote update.\n- **January 9, 2026**: NEXT Insurance sent a cancellation notice for general liability insurance.\n- **January 12, 2026**: Harper Service requested confirmation of the mailing address and received a response with the updated address.\n\nIf you need more specific details about any of these emails, just let me know!",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "SELECT id,\n       sender_email,\n       recipient_emails,\n       subject,\n       body_text,\n       sent_date\nFROM communications.emails_silver\nWHERE matched_company_id = 29447",
+      "rows_returned": 12,
+      "duration_seconds": 10.97074580192566,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a list of recent emails, which aligns with the request to 'show me emails'. The response includes multiple items, fulfilling the list requirement.",
+        "matched_values": [
+          "recent emails related to Guardian Families Homecare, LLC"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    },
+    {
+      "test_id": "edge_ambiguous_001",
+      "category": "edge_cases",
+      "subcategory": "ambiguous",
+      "question": "Recent activity",
+      "answer": "Recent activity includes several communications regarding Guardian Families Homecare, LLC. On January 12, 2026, there were two emails exchanged about mailing address clarification, while on January 9, 2026, an inbound email confirmed the cancellation of general liability insurance and another email discussed an insurance reinstatement endorsement. Additionally, there were multiple calls on January 9, including a voicemail from a customer representative requesting a callback regarding a recent policy cancellation.",
+      "passed": true,
+      "skill_detected": "general",
+      "skill_expected": "general",
+      "skill_match": true,
+      "sql_generated": "SELECT 'email' AS TYPE,\n       sent_date AS timestamp,\n       subject AS SUMMARY,\n       sender_email AS contact,\n       direction\nFROM communications.emails_silver\nWHERE matched_company_id = 29447\nUNION ALL\nSELECT 'call' AS TYPE,\n       call_created_at AS timestamp,\n       recording_summary AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_call_silver\nWHERE matched_company_id = 29447\nUNION ALL\nSELECT 'sms' AS TYPE,\n       message_created_at AS timestamp,\n       message_body AS SUMMARY,\n       from_number AS contact,\n       direction\nFROM communications.phone_message_silver\nWHERE matched_company_id = 29447\nORDER BY timestamp DESC\nLIMIT 20",
+      "rows_returned": 20,
+      "duration_seconds": 12.975512027740479,
+      "error": null,
+      "agent_tracking": {
+        "route_decision": "sql_only",
+        "expected_route": "sql_only",
+        "route_match": true,
+        "execution_path": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "expected_agents": [
+          "supervisor",
+          "sql_agent",
+          "synthesizer"
+        ],
+        "agents_match": true,
+        "documents_retrieved": 0
+      },
+      "answer_validation": {
+        "is_correct": true,
+        "confidence": 0.9,
+        "reasoning": "The assistant's response provides a detailed account of recent activities, including specific dates and types of communications, which aligns with the expected interpretation of an account timeline. The use of multiple entries suggests a UNION ALL approach, as it combines various activities into a cohesive timeline.",
+        "matched_values": [
+          "recent activity",
+          "account timeline",
+          "emails",
+          "calls",
+          "January 12, 2026",
+          "January 9, 2026"
+        ],
+        "missing_values": []
+      },
+      "rouge_scores": {
+        "rouge1_recall": 0,
+        "rouge2_recall": 0,
+        "rougeL_recall": 0,
+        "error": "rouge_score package not installed. Run: pip install rouge-score"
+      }
+    }
+  ]
+}

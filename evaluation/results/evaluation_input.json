@@ -1,0 +1,233 @@
+{
+  "total": 30,
+  "company_id": 29447,
+  "distribution_by_subcategory": {
+    "companies_data": 2,
+    "email_communications": 3,
+    "phone_calls": 3,
+    "phone_messages": 2,
+    "documents": 2,
+    "document_search": 2,
+    "follow_up": 3,
+    "context_switch": 1,
+    "union_query": 2,
+    "aggregation": 2,
+    "vague_question": 2,
+    "chitchat": 2,
+    "off_topic": 2,
+    "typo": 1,
+    "ambiguous": 1
+  },
+  "questions": [
+    {
+      "id": "company_001",
+      "subcategory": "companies_data",
+      "question": "What is the company name?",
+      "actual_answer": "Guardian Families Homecare, LLC",
+      "actual_skill": "companies_data"
+    },
+    {
+      "id": "company_002",
+      "subcategory": "companies_data",
+      "question": "What industry is this company in?",
+      "actual_answer": "Healthcare",
+      "actual_skill": "companies_data"
+    },
+    {
+      "id": "email_001",
+      "subcategory": "email_communications",
+      "question": "How many emails have been exchanged with this company?",
+      "actual_answer": "12",
+      "actual_skill": "email_communications"
+    },
+    {
+      "id": "email_002",
+      "subcategory": "email_communications",
+      "question": "How many inbound emails have we received from this client?",
+      "actual_answer": "7",
+      "actual_skill": "email_communications"
+    },
+    {
+      "id": "email_006",
+      "subcategory": "email_communications",
+      "question": "When was the most recent email communication?",
+      "actual_answer": "January 12, 2026",
+      "actual_skill": "email_communications"
+    },
+    {
+      "id": "calls_002",
+      "subcategory": "phone_calls",
+      "question": "How many phone calls have been made with this company?",
+      "actual_answer": "16",
+      "actual_skill": "phone_calls"
+    },
+    {
+      "id": "calls_004",
+      "subcategory": "phone_calls",
+      "question": "How many incoming calls have we received?",
+      "actual_answer": "7",
+      "actual_skill": "phone_calls"
+    },
+    {
+      "id": "calls_005",
+      "subcategory": "phone_calls",
+      "question": "How many calls were answered?",
+      "actual_answer": "12",
+      "actual_skill": "phone_calls"
+    },
+    {
+      "id": "sms_003",
+      "subcategory": "phone_messages",
+      "question": "How many text messages have been exchanged?",
+      "actual_answer": "24",
+      "actual_skill": "phone_messages"
+    },
+    {
+      "id": "sms_004",
+      "subcategory": "phone_messages",
+      "question": "How many incoming text messages did we receive?",
+      "actual_answer": "3",
+      "actual_skill": "phone_messages"
+    },
+    {
+      "id": "doc_001",
+      "subcategory": "documents",
+      "question": "How many documents does this company have?",
+      "actual_answer": "13",
+      "actual_skill": "documents"
+    },
+    {
+      "id": "doc_002",
+      "subcategory": "documents",
+      "question": "What types of documents does this company have?",
+      "actual_answer": "PDF, PNG",
+      "actual_skill": "documents"
+    },
+    {
+      "id": "docsearch_001",
+      "subcategory": "document_search",
+      "question": "What does the insurance policy document say about coverage?",
+      "actual_answer": "Should search ChromaDB and return relevant document summaries about coverage",
+      "actual_skill": "documents"
+    },
+    {
+      "id": "docsearch_003",
+      "subcategory": "document_search",
+      "question": "What is the premium amount mentioned in the policy documents?",
+      "actual_answer": "1,036, 1036",
+      "actual_skill": "documents"
+    },
+    {
+      "id": "mem_001a",
+      "subcategory": "follow_up",
+      "question": "How many emails did we receive from this client?",
+      "actual_answer": "7",
+      "actual_skill": "email_communications"
+    },
+    {
+      "id": "mem_001b",
+      "subcategory": "follow_up",
+      "question": "What about outbound?",
+      "actual_answer": "4",
+      "actual_skill": "email_communications"
+    },
+    {
+      "id": "mem_003a",
+      "subcategory": "follow_up",
+      "question": "Tell me about the business",
+      "actual_answer": "Guardian Families Homecare, LLC, Healthcare, Home Care Services, Indianapolis, Indiana",
+      "actual_skill": "general"
+    },
+    {
+      "id": "mem_005b",
+      "subcategory": "context_switch",
+      "question": "What about their calls?",
+      "actual_answer": "16",
+      "actual_skill": "phone_calls"
+    },
+    {
+      "id": "multi_001",
+      "subcategory": "union_query",
+      "question": "Give me a complete overview of all communications with this company",
+      "actual_answer": "12, 16, 24",
+      "actual_skill": "general"
+    },
+    {
+      "id": "multi_002",
+      "subcategory": "union_query",
+      "question": "What is the total number of communications (emails + calls + messages)?",
+      "actual_answer": "52",
+      "actual_skill": "general"
+    },
+    {
+      "id": "multi_006",
+      "subcategory": "aggregation",
+      "question": "What percentage of calls were answered?",
+      "actual_answer": "75",
+      "actual_skill": "phone_calls"
+    },
+    {
+      "id": "multi_007",
+      "subcategory": "aggregation",
+      "question": "What is the ratio of inbound to outbound emails?",
+      "actual_answer": "7:4",
+      "actual_skill": "email_communications"
+    },
+    {
+      "id": "edge_vague_001",
+      "subcategory": "vague_question",
+      "question": "Show me stuff",
+      "actual_answer": "Should ask for clarification about what specific information is needed",
+      "actual_skill": "general"
+    },
+    {
+      "id": "edge_vague_003",
+      "subcategory": "vague_question",
+      "question": "What about them?",
+      "actual_answer": "Should ask what specific information about the company is needed",
+      "actual_skill": "general"
+    },
+    {
+      "id": "edge_chat_001",
+      "subcategory": "chitchat",
+      "question": "Hello",
+      "actual_answer": "hello, hi, help",
+      "actual_skill": "general"
+    },
+    {
+      "id": "edge_chat_004",
+      "subcategory": "chitchat",
+      "question": "What can you do?",
+      "actual_answer": "I'm here to help you with insurance information, including quotes, policy details, and more!",
+      "actual_skill": "general"
+    },
+    {
+      "id": "edge_offtopic_001",
+      "subcategory": "off_topic",
+      "question": "What's the weather like?",
+      "actual_answer": "Should redirect to insurance-related queries or politely decline",
+      "actual_skill": "general"
+    },
+    {
+      "id": "edge_offtopic_003",
+      "subcategory": "off_topic",
+      "question": "Can you book me a flight?",
+      "actual_answer": "Should politely explain focus on insurance data",
+      "actual_skill": "general"
+    },
+    {
+      "id": "edge_typo_002",
+      "subcategory": "typo",
+      "question": "Shwo me emials",
+      "actual_answer": "Should interpret as 'show me emails' and return email list",
+      "actual_skill": "general"
+    },
+    {
+      "id": "edge_ambiguous_001",
+      "subcategory": "ambiguous",
+      "question": "Recent activity",
+      "actual_answer": "Recent activity includes several communications regarding Guardian Families Homecare, LLC. \n\n- On January 12, 2026, Harper sent an outbound email clarifying the mailing address, followed by an inbound email from the client asking for the same clarification. \n- On January 9, 2026, there was an inbound email regarding a cancellation notice for their general liability insurance, and a call was made to address confusion about a recent policy cancellation and payment due date.",
+      "actual_skill": "general"
+    }
+  ]
+}

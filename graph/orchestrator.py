@@ -10,32 +10,59 @@ from .nodes.document_agent import document_agent_node
 from .nodes.synthesizer import synthesizer_node
 
 
-def route_after_supervisor(state: MultiAgentState) -> Literal["sql_agent", "document_agent", "hybrid_sql"]:
+def route_after_supervisor(state: MultiAgentState) -> Literal["sql_agent", "document_agent", "hybrid_sql", "conversational"]:
     route = state.get("route_decision", "sql_only")
-    if route == "sql_only":
+    print(f"[ROUTER] Route decision from supervisor: '{route}'")
+
+    if route == "conversational":
+        print("[ROUTER] -> conversational node")
+        return "conversational"
+    elif route == "sql_only":
+        print("[ROUTER] -> sql_agent node")
         return "sql_agent"
     elif route == "document_search":
+        print("[ROUTER] -> document_agent node")
         return "document_agent"
     elif route == "hybrid":
+        print("[ROUTER] -> hybrid_sql node")
         return "hybrid_sql"
+    print(f"[ROUTER] Unknown route '{route}', defaulting to sql_agent")
     return "sql_agent"
+
+
+def conversational_node(state: MultiAgentState) -> Dict[str, Any]:
+    """Handle conversational messages without querying any data."""
+    print("\n" + "="*60)
+    print("CONVERSATIONAL NODE - No data needed")
+    print("="*60)
+
+    response = state.get("conversational_response", "I'm here to help! How can I assist you today?")
+    print(f"Response: {response}")
+    print("="*60 + "\n")
+
+    return {
+        "final_response": response,
+        "execution_path": ["conversational"]
+    }
 
 
 def build_multi_agent_graph() -> StateGraph:
     """Build the LangGraph for multi-agent orchestration."""
     workflow = StateGraph(MultiAgentState)
     workflow.add_node("supervisor", supervisor_node)
+    workflow.add_node("conversational", conversational_node)
     workflow.add_node("sql_agent", sql_agent_node)
     workflow.add_node("hybrid_sql", sql_agent_node)
     workflow.add_node("document_agent", document_agent_node)
     workflow.add_node("synthesizer", synthesizer_node)
     workflow.set_entry_point("supervisor")
     workflow.add_conditional_edges("supervisor", route_after_supervisor,
-        {"sql_agent": "sql_agent", "document_agent": "document_agent", "hybrid_sql": "hybrid_sql"})
+        {"sql_agent": "sql_agent", "document_agent": "document_agent", "hybrid_sql": "hybrid_sql", "conversational": "conversational"})
     workflow.add_edge("sql_agent", "synthesizer")
     workflow.add_edge("hybrid_sql", "document_agent")
     workflow.add_edge("document_agent", "synthesizer")
     workflow.add_edge("synthesizer", END)
+    workflow.add_edge("conversational", END)
     return workflow.compile()
 
 
@@ -46,7 +73,13 @@ class MultiAgentOrchestrator:
         self.company_id = company_id
         self.graph = build_multi_agent_graph()
 
-    def process_query(self, user_question: str, session_id: str, conversation_history: Optional[List[dict]] = None) -> Dict[str, Any]:
+    def process_query(
+        self,
+        user_question: str,
+        session_id: str,
+        conversation_history: Optional[List[dict]] = None,
+        agent_memories: Optional[Dict[str, List[dict]]] = None
+    ) -> Dict[str, Any]:
         print("\n" + "="*70)
         print("MULTI-AGENT ORCHESTRATOR")
         print("="*70)
@@ -54,10 +87,20 @@ class MultiAgentOrchestrator:
         print(f"Company ID: {self.company_id}")
         print("="*70 + "\n")
 
+        # Initialize agent memories from provided data or empty lists
+        agent_memories = agent_memories or {}
+
         initial_state: MultiAgentState = {
             "user_question": user_question, "company_id": self.company_id, "session_id": session_id,
-            "conversation_history": conversation_history or [], "route_decision": "sql_only",
-            "routing_reasoning": "", "agent_responses": [], "sql_skill": None, "sql_query": None,
+            "conversation_history": conversation_history or [],
+            # Agent-specific memories
+            "supervisor_memory": agent_memories.get("supervisor", []),
+            "sql_agent_memory": agent_memories.get("sql_agent", []),
+            "document_agent_memory": agent_memories.get("document_agent", []),
+            "synthesizer_memory": agent_memories.get("synthesizer", []),
+            "route_decision": "sql_only",
+            "routing_reasoning": "", "conversational_response": None, "agent_responses": [],
+            "sql_skill": None, "sql_query": None,
             "sql_results": None, "sql_reasoning": None, "sql_natural_response": None,
             "retrieved_documents": None, "document_summary": None, "final_response": None,
             "execution_path": [], "error": None
@@ -89,10 +132,18 @@ class MultiAgentOrchestrator:
                       "reasoning": state.get("sql_reasoning", "") or state.get("routing_reasoning", ""),
                       "execution_path": state.get("execution_path", []), "route_decision": state.get("route_decision", "unknown")}
 
+        # Include updated agent memories in the result
+        agent_memories = {
+            "supervisor": state.get("supervisor_memory", []),
+            "sql_agent": state.get("sql_agent_memory", []),
+            "document_agent": state.get("document_agent_memory", []),
+            "synthesizer": state.get("synthesizer_memory", [])
+        }
+
         return {"success": state.get("error") is None, "sql": state.get("sql_query", ""),
                 "reasoning": state.get("sql_reasoning", ""), "explanation": "",
                 "results": state.get("sql_results", []) or [], "error": state.get("error"), "attempts": 1,
                 "skill": state.get("sql_skill", "general") or "general",
                 "natural_response": state.get("final_response", ""), "data_sources": data_sources,
                 "metadata_summary": "", "trajectory": trajectory, "route_decision": state.get("route_decision"),
-                "documents": state.get("retrieved_documents", [])}
+                "documents": state.get("retrieved_documents", []), "agent_memories": agent_memories}

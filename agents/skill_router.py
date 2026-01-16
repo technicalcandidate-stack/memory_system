@@ -15,6 +15,14 @@ class SkillDetector:
 
     # Priority keywords - checked in order, first match wins
     PRIORITY_KEYWORDS = {
+        # Documents - for file/document related questions
+        "documents": [
+            "document", "documents", "file", "files",
+            "pdf", "png", "jpg", "jpeg", "image", "images",
+            "attachment", "attachments", "upload", "uploaded",
+            "download", "policy document", "certificate",
+            "contract", "contracts", "paperwork"
+        ],
         # Phone calls - HIGHEST priority for call-related questions
         "phone_calls": [
             "call", "calls", "phone call", "called", "calling",
@@ -58,16 +66,17 @@ class SkillDetector:
 
         Priority order:
         1. Check overview keywords (account status, what's going on) → general (multi-table UNION)
-        2. Check phone_calls keywords (calls, conversations, voicemails)
-        3. Check phone_messages keywords (SMS, texts)
-        4. Check email_communications keywords (quotes, emails)
-        5. Check companies_data keywords - LOWEST PRIORITY
+        2. Check documents keywords (document, file, pdf, attachment)
+        3. Check phone_calls keywords (calls, conversations, voicemails)
+        4. Check phone_messages keywords (SMS, texts)
+        5. Check email_communications keywords (quotes, emails)
+        6. Check companies_data keywords - LOWEST PRIORITY
 
         Args:
             question: User's natural language question
 
         Returns:
-            Skill name: general | phone_calls | phone_messages | email_communications | companies_data
+            Skill name: general | documents | phone_calls | phone_messages | email_communications | companies_data
         """
         question_lower = question.lower()
 

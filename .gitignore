@@ -6,7 +6,6 @@ tools/
 
 # Test scripts (not needed for running the app)
 test_setup.py
-evaluation/
 
 # Python
 __pycache__/

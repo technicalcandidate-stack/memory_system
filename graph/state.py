@@ -20,9 +20,15 @@ class MultiAgentState(TypedDict):
     user_question: str
     company_id: int
     session_id: str
-    conversation_history: List[dict]
-    route_decision: Literal["sql_only", "document_only", "hybrid"]
+    conversation_history: List[dict]  # Main conversation history (kept for compatibility)
+    # Agent-specific memories - each agent has its own isolated memory
+    supervisor_memory: List[dict]
+    sql_agent_memory: List[dict]
+    document_agent_memory: List[dict]
+    synthesizer_memory: List[dict]
+    route_decision: Literal["sql_only", "document_only", "hybrid", "conversational"]
     routing_reasoning: str
+    conversational_response: Optional[str]
     agent_responses: Annotated[List[AgentResponse], add]
     sql_skill: Optional[str]
     sql_query: Optional[str]

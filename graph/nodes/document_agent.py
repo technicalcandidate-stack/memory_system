@@ -161,6 +161,18 @@ def _format_documents_for_llm(documents: List[dict], with_content: bool = False)
     return "\n".join(parts)
 
 
+def _format_document_agent_memory(memory: List[dict]) -> str:
+    """Format document agent's memory for context."""
+    if not memory:
+        return "No previous document searches."
+    context_parts = []
+    for i, entry in enumerate(memory[-3:], 1):
+        q = entry.get('question', '')[:80]
+        result = entry.get('answer', '')[:100]
+        context_parts.append(f"[{i}] Question: {q}... -> {result}")
+    return "\n".join(context_parts)
+
+
 def document_agent_node(state: MultiAgentState) -> Dict[str, Any]:
     """Document Agent node - retrieves all company documents and lets LLM find the answer."""
     print("\n" + "="*60)
@@ -169,6 +181,10 @@ def document_agent_node(state: MultiAgentState) -> Dict[str, Any]:
 
     company_id = state["company_id"]
     question = state["user_question"]
+
+    # Use document agent's own memory
+    document_agent_memory = state.get("document_agent_memory", [])
+    print(f"Document Agent memory entries: {len(document_agent_memory)}")
 
     print(f"Retrieving all documents for company {company_id}...")
     print(f"Question: {question}")
@@ -246,5 +262,13 @@ Response: "According to **NXTKCJ99LW-00-GL-policy-0000.pdf**, the premium is **$
     print(f"Document Agent completed (confidence: {confidence})")
     print("="*60 + "\n")
 
+    # Create memory entry for this document retrieval
+    result_summary = f"Found {len(company_docs)} docs; Response: {natural_response[:100]}..."
+    memory_entry = {
+        "question": question,
+        "answer": result_summary
+    }
+
     return {"agent_responses": [agent_response], "retrieved_documents": documents,
-            "document_summary": natural_response, "execution_path": ["document_agent"]}
+            "document_summary": natural_response, "execution_path": ["document_agent"],
+            "document_agent_memory": document_agent_memory + [memory_entry]}

@@ -1,0 +1,54 @@
+{
+  "total_failed": 4,
+  "total_tests": 30,
+  "failed_tests": [
+    {
+      "id": "mem_001b",
+      "question": "What about outbound?",
+      "actual_answer": "4",
+      "llm_judge": "fail",
+      "llm_judge_score": 0.9,
+      "skill_match": "fail",
+      "passed": "fail",
+      "predicted_answer": "I need a bit more information to answer your question.\n\n**What specific outbound communications are you interested in? Emails, phone calls, or text messages?**",
+      "actual_skill": "email_communications",
+      "predicted_skill": "general"
+    },
+    {
+      "id": "mem_005b",
+      "question": "What about their calls?",
+      "actual_answer": "16",
+      "llm_judge": "fail",
+      "llm_judge_score": 0.9,
+      "skill_match": "pass",
+      "passed": "fail",
+      "predicted_answer": "I need a bit more information to answer your question.\n\n**What specific information about their calls would you like to see? Recent calls, missed calls, or details about service requests?**",
+      "actual_skill": "phone_calls",
+      "predicted_skill": "phone_calls"
+    },
+    {
+      "id": "multi_001",
+      "question": "Give me a complete overview of all communications with this company",
+      "actual_answer": "12, 16, 24",
+      "llm_judge": "fail",
+      "llm_judge_score": 0.8,
+      "skill_match": "pass",
+      "passed": "fail",
+      "predicted_answer": "Here's what's been happening with Guardian Families Homecare, LLC:\n\n- On January 12, 2026, there were two emails exchanged regarding a mailing address clarification. The email from Harper Insurance was sent to guardianfamiliesfirst@gmail.com, and they responded shortly after.\n- On January 9, 2026, a call was made to a Harper Sales Agent regarding a policy cancellation and payment confusion, while another call from a customer representative resulted in a voicemail requesting a callback.\n\nOverall, there were 5 emails and 4 phone calls documented in this communication history.",
+      "actual_skill": "general",
+      "predicted_skill": "general"
+    },
+    {
+      "id": "edge_chat_004",
+      "question": "What can you do?",
+      "actual_answer": "I'm here to help you with insurance information, including quotes, policy details, and more!",
+      "llm_judge": "fail",
+      "llm_judge_score": 0.7,
+      "skill_match": "pass",
+      "passed": "fail",
+      "predicted_answer": "I'm here to help you with insurance information, including quotes, policy details, and more! How can I assist you today?",
+      "actual_skill": "general",
+      "predicted_skill": "general"
+    }
+  ]
+}

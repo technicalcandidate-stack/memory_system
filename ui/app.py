@@ -1,5 +1,6 @@
 """Streamlit chat interface - Gemini style with chat sessions."""
 import streamlit as st
+import streamlit_modal as modal
 import pandas as pd
 import sys
 from pathlib import Path
@@ -49,60 +50,33 @@ st.markdown("""
         background-color: #121212 !important;
     }
 
-    /* Sidebar - Dark theme */
-    [data-testid="stSidebar"] {
-        background-color: #1e1e1e !important;
-        padding: 1rem;
-        border-right: 1px solid #3d3d3d;
-    }
-
+    /* Sidebar text color */
     [data-testid="stSidebar"] * {
         color: #e3e3e3 !important;
     }
 
-    [data-testid="stSidebar"] > div:first-child {
-        background-color: #1e1e1e !important;
-    }
-
-    /* New Chat Button - Dark style */
-    .new-chat-container {
-        margin-bottom: 1.5rem;
-    }
-
-    div[data-testid="stButton"] button {
-        width: 100%;
+    /* Main area buttons - not sidebar */
+    .main div[data-testid="stButton"] button {
         background-color: #2d2d2d !important;
         color: #e3e3e3 !important;
         border: none !important;
-        border-radius: 24px !important;
+        border-radius: 8px !important;
         padding: 10px 20px !important;
         font-weight: 500 !important;
         font-size: 14px !important;
         transition: background-color 0.2s !important;
     }
 
-    div[data-testid="stButton"] button:hover {
+    .main div[data-testid="stButton"] button:hover {
         background-color: #3d3d3d !important;
     }
 
-    /* Chat sessions list */
-    .chat-session-item {
-        padding: 8px 12px;
-        margin: 4px 0;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 13px;
-        background-color: transparent;
-        transition: background-color 0.2s;
+    .main div[data-testid="stButton"] button[kind="primary"] {
+        background-color: #4a8cf7 !important;
     }
 
-    .chat-session-item:hover {
-        background-color: #2d2d2d;
-    }
-
-    .chat-session-item.active {
-        background-color: #3d3d3d;
-        font-weight: 500;
+    .main div[data-testid="stButton"] button[kind="primary"]:hover {
+        background-color: #3a7ce0 !important;
     }
 
     /* Main chat area background */
@@ -237,13 +211,7 @@ st.markdown("""
     }
 
     .sidebar-section-title {
-        font-size: 11px;
-        font-weight: 600;
-        color: #b3b3b3;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.5rem;
-        padding: 0 12px;
+        display: none;
     }
 
     /* Code blocks */
@@ -400,6 +368,205 @@ st.markdown("""
     [data-testid="stChatInput"] > div {
         background-color: #121212 !important;
     }
+
+    /* ==================== ChatGPT-Style Sidebar ==================== */
+
+    /* Sidebar base - darker background like ChatGPT */
+    [data-testid="stSidebar"] {
+        background-color: #171717 !important;
+        padding: 0 !important;
+        border-right: none !important;
+    }
+
+    [data-testid="stSidebar"] > div:first-child {
+        background-color: #171717 !important;
+        padding: 12px 12px 0 12px !important;
+    }
+
+    /* New Chat Button - ChatGPT style with border */
+    [data-testid="stSidebar"] > div > div > div > div > button:first-of-type {
+        background-color: transparent !important;
+        border: 1px solid #3d3d3d !important;
+        border-radius: 8px !important;
+        padding: 12px 16px !important;
+        margin: 8px 0 !important;
+        width: 100% !important;
+        text-align: left !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        color: #e3e3e3 !important;
+        transition: background-color 0.15s ease !important;
+    }
+
+    [data-testid="stSidebar"] > div > div > div > div > button:first-of-type:hover {
+        background-color: #2d2d2d !important;
+    }
+
+    /* Chats section header */
+    .chats-header {
+        font-size: 12px;
+        font-weight: 500;
+        color: #8e8ea0 !important;
+        padding: 16px 12px 8px 12px;
+        text-transform: none;
+        letter-spacing: 0;
+    }
+
+    /* Chat list container - full width */
+    [data-testid="stSidebar"] [data-testid="stVerticalBlock"] {
+        gap: 2px !important;
+    }
+
+    /* Chat session container - single box style */
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] {
+        gap: 0 !important;
+        margin: 2px 8px !important;
+        padding: 0 !important;
+        background-color: transparent !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"]:hover {
+        background-color: #212121 !important;
+    }
+
+    /* Active session - slightly lighter background */
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"]:has(button[kind="primary"]) {
+        background-color: #2a2a2a !important;
+    }
+
+    /* Session name button - takes most of the space */
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:first-child {
+        flex: 1 !important;
+        min-width: 0 !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:first-child button {
+        background-color: transparent !important;
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+        font-weight: 400 !important;
+        color: #b3b3b3 !important;
+        text-align: left !important;
+        transition: none !important;
+        width: 100% !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:first-child button:hover {
+        background-color: transparent !important;
+    }
+
+    /* Active session text color */
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:first-child button[kind="primary"] {
+        background-color: transparent !important;
+        color: #e3e3e3 !important;
+        font-weight: 400 !important;
+    }
+
+    /* Menu button (⋮) - inside the box */
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:last-child {
+        flex: 0 0 auto !important;
+        width: auto !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:last-child button {
+        background-color: transparent !important;
+        border: none !important;
+        padding: 8px 10px !important;
+        font-size: 14px !important;
+        opacity: 0;
+        min-width: auto !important;
+        width: auto !important;
+        border-radius: 0 !important;
+        color: #8e8ea0 !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"]:hover > div:last-child button {
+        opacity: 1;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stHorizontalBlock"] > div:last-child button:hover {
+        background-color: #3d3d3d !important;
+        border-radius: 4px !important;
+    }
+
+    /* Delete option - appears below, no icon */
+    .sidebar-delete-option {
+        margin: 0 8px 4px 8px !important;
+    }
+
+    .sidebar-delete-option button {
+        background-color: #2a2a2a !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        color: #b3b3b3 !important;
+        text-align: left !important;
+    }
+
+    .sidebar-delete-option button:hover {
+        background-color: #3d3d3d !important;
+        color: #ff6b6b !important;
+    }
+
+    /* Confirmation dialog */
+    [data-testid="stSidebar"] .stWarning {
+        background-color: #2d2d2d !important;
+        border: none !important;
+        border-radius: 8px !important;
+        margin: 4px 8px !important;
+        padding: 10px !important;
+        font-size: 12px !important;
+    }
+
+    /* Company selector section */
+    .company-selector-section {
+        padding: 12px;
+        border-bottom: 1px solid #2d2d2d;
+        margin-bottom: 8px;
+    }
+
+    /* Hide default hr dividers in sidebar */
+    [data-testid="stSidebar"] hr {
+        display: none !important;
+    }
+
+    /* Selectbox in sidebar */
+    [data-testid="stSidebar"] .stSelectbox {
+        margin: 8px 0 !important;
+    }
+
+    [data-testid="stSidebar"] .stSelectbox > div > div {
+        background-color: #2d2d2d !important;
+        border: 1px solid #3d3d3d !important;
+        border-radius: 8px !important;
+    }
+
+    /* Info box for locked company */
+    [data-testid="stSidebar"] .stAlert {
+        background-color: #2d2d2d !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 10px 12px !important;
+    }
+
+    /* Modal popup box background */
+    [role="dialog"] > div:last-child {
+        background-color: #2d2d2d !important;
+        padding: 24px !important;
+    }
+
+    /* Make modal content area include buttons */
+    [role="dialog"] section[data-testid="stVerticalBlock"] {
+        background-color: #2d2d2d !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -434,6 +601,12 @@ if "current_session_id" not in st.session_state:
     st.session_state.current_session_id = None
 if "current_company_id" not in st.session_state:
     st.session_state.current_company_id = DEFAULT_COMPANY_ID
+if "delete_menu_open" not in st.session_state:
+    st.session_state.delete_menu_open = None  # Session ID of open menu
+if "confirm_delete" not in st.session_state:
+    st.session_state.confirm_delete = None  # Session ID pending confirmation
+if "show_company_warning" not in st.session_state:
+    st.session_state.show_company_warning = False  # Show company change popup
 
 def create_new_chat_session(company_id):
     """Create a new chat session."""
@@ -452,24 +625,58 @@ def create_new_chat_session(company_id):
 
     return session_id
 
-def get_session_title(session):
-    """Get a title for the chat session based on first message."""
-    if session["messages"]:
-        first_user_msg = next((m for m in session["messages"] if m["role"] == "user"), None)
-        if first_user_msg:
-            title = first_user_msg["content"][:40]
-            return title + "..." if len(first_user_msg["content"]) > 40 else title
-    return "New Chat"
+def get_session_title(session, company_id_to_name):
+    """Get a title for the chat session based on company name."""
+    company_id = session.get("company_id")
+    if company_id and company_id in company_id_to_name:
+        company_name = company_id_to_name[company_id]
+        # Truncate company name if too long
+        if len(company_name) > 30:
+            return company_name[:27] + "..."
+        return company_name
+    return f"Company {company_id}" if company_id else "New Chat"
+
+
+def delete_chat_session(session_id):
+    """Delete a chat session."""
+    if session_id in st.session_state.chat_sessions:
+        del st.session_state.chat_sessions[session_id]
+        # Clear memory for this session
+        st.session_state.memory_manager.clear_session(session_id)
+        st.session_state.memory_manager.clear_all_agent_memories(session_id)
+        # If deleted session was active, switch to another or create new
+        if st.session_state.current_session_id == session_id:
+            if st.session_state.chat_sessions:
+                # Switch to most recent session
+                sorted_sessions = sorted(
+                    st.session_state.chat_sessions.values(),
+                    key=lambda x: x["created_at"],
+                    reverse=True
+                )
+                st.session_state.current_session_id = sorted_sessions[0]["id"]
+                st.session_state.current_company_id = sorted_sessions[0]["company_id"]
+            else:
+                st.session_state.current_session_id = None
+
+# Load companies data
+companies = load_companies()
+company_options = {comp['name']: comp['id'] for comp in companies}
+company_id_to_name = {comp['id']: comp['name'] for comp in companies}
+
+# Check if current session has messages (locked to company)
+current_session_has_messages = (
+    st.session_state.current_session_id and
+    st.session_state.current_session_id in st.session_state.chat_sessions and
+    len(st.session_state.chat_sessions[st.session_state.current_session_id].get("messages", [])) > 0
+)
 
 # Sidebar
 with st.sidebar:
-    st.markdown("### Insurance Intelligence")
-    st.markdown("")
+    # Sidebar title - centered
+    st.markdown("<h3 style='text-align: center; margin-bottom: 16px;'>Insurance Intelligence</h3>", unsafe_allow_html=True)
 
-    # New Chat button
-    if st.button("✨ New Chat", key="new_chat_btn"):
-        companies = load_companies()
-        company_options = {comp['name']: comp['id'] for comp in companies}
+    # New Chat button - ChatGPT style
+    if st.button("+ New chat", key="new_chat_btn", use_container_width=True):
         default_company_name = next(
             (comp['name'] for comp in companies if comp['id'] == DEFAULT_COMPANY_ID),
             list(company_options.keys())[0] if company_options else None
@@ -479,13 +686,7 @@ with st.sidebar:
             create_new_chat_session(company_id)
             st.rerun()
 
-    st.markdown("---")
-
-    # Company selector
-    st.markdown('<div class="sidebar-section-title">Select Company</div>', unsafe_allow_html=True)
-    companies = load_companies()
-    company_options = {comp['name']: comp['id'] for comp in companies}
-
+    # Company selector - always show but trigger popup if session is locked
     default_company_name = next(
         (comp['name'] for comp in companies if comp['id'] == st.session_state.current_company_id),
         list(company_options.keys())[0] if company_options else None
@@ -499,40 +700,151 @@ with st.sidebar:
         key="company_selector"
     )
 
-    company_id = company_options[selected_company_name]
+    selected_company_id = company_options[selected_company_name]
 
-    # If company changed, update current session or create new one
-    if company_id != st.session_state.current_company_id:
-        st.session_state.current_company_id = company_id
-        if st.session_state.current_session_id:
-            st.session_state.chat_sessions[st.session_state.current_session_id]["company_id"] = company_id
+    # Handle company change
+    if selected_company_id != st.session_state.current_company_id:
+        if current_session_has_messages:
+            # Session is locked - show warning popup
+            st.session_state.show_company_warning = True
+            st.session_state.pending_company_id = selected_company_id
+        else:
+            # No messages yet - allow company change
+            st.session_state.current_company_id = selected_company_id
+            if st.session_state.current_session_id and st.session_state.current_session_id in st.session_state.chat_sessions:
+                st.session_state.chat_sessions[st.session_state.current_session_id]["company_id"] = selected_company_id
 
-    st.markdown("---")
+    # Use the current company_id for queries
+    company_id = st.session_state.current_company_id
 
     # Chat sessions list
     if st.session_state.chat_sessions:
-        st.markdown('<div class="sidebar-section-title">Recent Chats</div>', unsafe_allow_html=True)
+        st.markdown('<div class="chats-header">Chats</div>', unsafe_allow_html=True)
 
-        # Sort sessions by creation time (newest first)
+        # Sort sessions: current session first, then by creation time (newest first)
+        current_id = st.session_state.current_session_id
         sorted_sessions = sorted(
             st.session_state.chat_sessions.values(),
-            key=lambda x: x["created_at"],
-            reverse=True
+            key=lambda x: (x["id"] != current_id, -x["created_at"].timestamp()),
         )
 
         for session in sorted_sessions[:10]:  # Show last 10 chats
-            session_title = get_session_title(session)
+            session_title = get_session_title(session, company_id_to_name)
             is_active = session["id"] == st.session_state.current_session_id
+            menu_open = st.session_state.delete_menu_open == session["id"]
+            confirm_open = st.session_state.confirm_delete == session["id"]
 
-            if st.button(
-                f"💬 {session_title}",
-                key=f"session_{session['id']}",
-                use_container_width=True,
-                type="primary" if is_active else "secondary"
-            ):
-                st.session_state.current_session_id = session["id"]
-                st.session_state.current_company_id = session["company_id"]
+            # Create columns for chat item and menu button
+            col1, col2 = st.columns([5, 1])
+
+            with col1:
+                if st.button(
+                    session_title,
+                    key=f"session_{session['id']}",
+                    use_container_width=True,
+                    type="primary" if is_active else "secondary",
+                ):
+                    st.session_state.current_session_id = session["id"]
+                    st.session_state.current_company_id = session["company_id"]
+                    st.session_state.delete_menu_open = None
+                    st.session_state.confirm_delete = None
+                    st.rerun()
+
+            with col2:
+                # Toggle menu on click
+                if st.button("⋮", key=f"menu_{session['id']}", help="Options"):
+                    if menu_open:
+                        st.session_state.delete_menu_open = None
+                    else:
+                        st.session_state.delete_menu_open = session["id"]
+                        st.session_state.confirm_delete = None
+                    st.rerun()
+
+            # Show delete option if menu is open
+            if menu_open and not confirm_open:
+                if st.button("Delete", key=f"delete_option_{session['id']}", use_container_width=True):
+                    st.session_state.confirm_delete = session["id"]
+                    st.session_state.delete_menu_open = None
+                    st.rerun()
+
+            # Delete confirmation is now handled via modal popup outside sidebar
+
+# Delete confirmation modal - define outside the condition
+delete_modal = modal.Modal("Delete Chat", key="delete_modal", padding=20, max_width=400)
+
+# Trigger modal open when confirm_delete is set
+if st.session_state.confirm_delete and not delete_modal.is_open():
+    delete_modal.open()
+
+# Clear state if modal was closed externally (clicked outside)
+if not delete_modal.is_open() and st.session_state.confirm_delete:
+    st.session_state.confirm_delete = None
+
+# Modal content - always define this
+if delete_modal.is_open():
+    session_to_delete = st.session_state.confirm_delete
+    session_title = ""
+    if session_to_delete and session_to_delete in st.session_state.chat_sessions:
+        session_title = get_session_title(st.session_state.chat_sessions[session_to_delete], company_id_to_name)
+
+    with delete_modal.container():
+        st.markdown(f"""
+            <div style="text-align: center; padding: 10px 0 20px 0;">
+                <div style="font-size: 14px; color: #b3b3b3; margin-bottom: 8px;">Are you sure you want to delete</div>
+                <div style="font-size: 16px; font-weight: 500; color: #e3e3e3;">"{session_title}"?</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+        bcol1, bcol2 = st.columns(2)
+        with bcol1:
+            if st.button("Delete", key="confirm_delete_yes", type="primary", use_container_width=True):
+                delete_chat_session(session_to_delete)
+                st.session_state.confirm_delete = None
+                delete_modal.close()
                 st.rerun()
+        with bcol2:
+            if st.button("Cancel", key="confirm_delete_no", use_container_width=True):
+                st.session_state.confirm_delete = None
+                delete_modal.close()
+                st.rerun()
+
+# Company change warning modal - no close button
+company_modal = modal.Modal("Company Locked", key="company_modal", padding=20, max_width=420)
+
+# Trigger modal open when show_company_warning is set
+if st.session_state.show_company_warning and not company_modal.is_open():
+    company_modal.open()
+
+# Clear state if modal was closed externally (clicked outside)
+if not company_modal.is_open() and st.session_state.show_company_warning:
+    st.session_state.show_company_warning = False
+    st.session_state.pending_company_id = None
+
+# Modal content
+if company_modal.is_open():
+    current_company_name = company_id_to_name.get(st.session_state.current_company_id, "Unknown")
+    pending_company_name = company_id_to_name.get(
+        st.session_state.get("pending_company_id", st.session_state.current_company_id),
+        "Unknown"
+    )
+
+    with company_modal.container():
+        st.markdown(f"""
+            <div style="text-align: center; padding: 10px 0 20px 0;">
+                <div style="font-size: 14px; color: #b3b3b3; margin-bottom: 8px;">This chat is specific to</div>
+                <div style="font-size: 18px; font-weight: 600; color: #4a8cf7; margin-bottom: 16px;">{current_company_name}</div>
+                <div style="font-size: 14px; color: #b3b3b3;">To chat about <strong style="color: #e3e3e3;">{pending_company_name}</strong>, please start a new chat.</div>
+            </div>
+        """, unsafe_allow_html=True)
+
+        if st.button("Start New Chat", key="dialog_new_chat", type="primary", use_container_width=True):
+            pending_id = st.session_state.get("pending_company_id", DEFAULT_COMPANY_ID)
+            create_new_chat_session(pending_id)
+            st.session_state.current_company_id = pending_id
+            st.session_state.show_company_warning = False
+            st.session_state.pending_company_id = None
+            company_modal.close()
+            st.rerun()
 
 # Main chat area
 if not st.session_state.current_session_id or st.session_state.current_session_id not in st.session_state.chat_sessions:
@@ -573,8 +885,13 @@ if prompt := st.chat_input("Ask a question..."):
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             try:
-                # Get conversation history from LangChain memory
+                # Get conversation history from LangChain memory (kept for compatibility)
                 conversation_history = st.session_state.memory_manager.get_conversation_history(
+                    current_session["id"]
+                )
+
+                # Get agent-specific memories
+                agent_memories = st.session_state.memory_manager.get_all_agent_memories(
                     current_session["id"]
                 )
 
@@ -583,7 +900,8 @@ if prompt := st.chat_input("Ask a question..."):
                 result = orchestrator.process_query(
                     user_question=prompt,
                     session_id=current_session["id"],
-                    conversation_history=conversation_history
+                    conversation_history=conversation_history,
+                    agent_memories=agent_memories
                 )
             except Exception as e:
                 st.error(f"Error executing query: {str(e)}")
@@ -680,13 +998,36 @@ if prompt := st.chat_input("Ask a question..."):
             "content": response_text
         })
 
-        # Update LangChain memory
+        # Update LangChain memory (main conversation)
         st.session_state.memory_manager.add_exchange(
             current_session["id"],
             prompt,
             response_text
         )
 
+        # Persist agent-specific memories from the result
+        if "agent_memories" in result:
+            agent_memories = result["agent_memories"]
+            session_id = current_session["id"]
+
+            # Update each agent's memory with new entries
+            for agent_name, memory_entries in agent_memories.items():
+                if memory_entries:
+                    # Get the last entry (the new one from this execution)
+                    # We compare with what was passed in to find new entries
+                    current_stored = st.session_state.memory_manager.get_agent_history(session_id, agent_name)
+                    new_entries = memory_entries[len(current_stored):]
+
+                    for entry in new_entries:
+                        st.session_state.memory_manager.add_agent_exchange(
+                            session_id,
+                            agent_name,
+                            entry.get("question", ""),
+                            entry.get("answer", "")
+                        )
+
         # Update session title if first message
         if len(current_session["messages"]) == 2:  # First Q&A
-            current_session["title"] = get_session_title(current_session)
+            companies = load_companies()
+            company_id_to_name = {comp['id']: comp['name'] for comp in companies}
+            current_session["title"] = get_session_title(current_session, company_id_to_name)
